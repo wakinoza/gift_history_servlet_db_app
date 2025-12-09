@@ -6,6 +6,9 @@ import java.io.Serializable;
  * ユーザー情報を保持するクラス.
  */
 public class User implements Serializable {
+  /** ユーザーID. */
+  private String id;
+
   /** ユーザー名. */
   private String name;
 
@@ -31,6 +34,10 @@ public class User implements Serializable {
   /**
    * getterメソッド.
    */
+  public String getId() {
+    return this.id;
+  }
+
   public String getName() {
     return this.name;
   }
@@ -38,5 +45,22 @@ public class User implements Serializable {
   public String getPass() {
     return this.pass;
   }
+
+  /**
+   * setterメソッド
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setPass(String pass) {
+    this.pass = pass;
+  }
+
 }
+
 
