@@ -10,5 +10,5 @@
 <h1>頂き物記録アプリをログアウト</h1>
 <p>ログアウトしました</p>
 <a href="index.jsp">トップへ</a>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />

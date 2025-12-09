@@ -30,5 +30,5 @@
 </div>
 <br>
 <a href="Main">メイン画面に戻る</a>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />

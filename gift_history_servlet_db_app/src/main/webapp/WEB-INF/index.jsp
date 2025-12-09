@@ -13,5 +13,5 @@
 パスワード：<input type="password" name="pass"><br>
 <input type="submit" value="ログイン">
 </form>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />

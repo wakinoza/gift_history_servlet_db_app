@@ -39,5 +39,5 @@
      </c:forEach>
   </c:otherwise>
 </c:choose>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />

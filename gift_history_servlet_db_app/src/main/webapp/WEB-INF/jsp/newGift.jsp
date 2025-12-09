@@ -18,5 +18,5 @@
    </p>
    <input type="submit" value="頂物の情報を記録">
  </form>
-</body>
-</html>
+
+ <jsp:include page="footer.jsp" />

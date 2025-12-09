@@ -20,5 +20,5 @@
   <a href="Main">頂き物記録ページに移動する</a>
  </c:otherwise>
 </c:choose>
-</body>
-</html>
+
+<jsp:include page="footer.jsp" />
