@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <jsp:include page="header.jsp" />
+<jsp:include page="loginName.jsp" />
 
 <form action="NewGift">
   <button type="submit" style="background:orange; border:none; border-radius:5px; cursor:pointer; padding:5px;">頂き物の新規記録</button>

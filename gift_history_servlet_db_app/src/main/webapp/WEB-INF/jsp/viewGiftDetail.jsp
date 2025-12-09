@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <jsp:include page="header.jsp" />
+<jsp:include page="loginName.jsp" />
 
 <div style="margin: 5px; background-color:#1760a0; color:white; padding-left: 10px;">
    <h2　style="margin: 0;">頂き物の詳細</h2>
