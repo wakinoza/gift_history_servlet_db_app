@@ -18,7 +18,7 @@ public class GiftItemDAO extends DAO {
   public boolean insert(GiftItem giftItem) {
     try (Connection con = getConnection()) {
       String sql =
-          "INSERT INTO GiftItems (what, when, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO giftItems (what, when, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, giftItem.getWhat());
@@ -40,44 +40,21 @@ public class GiftItemDAO extends DAO {
   }
 
   /**
-   * . 指定されたTodoItemインスタンスの進捗情報を変更するメソッド
+   * . 指定されたgiftItemインスタンスの進捗情報を変更するメソッド
    *
-   * @param id 進捗情報を更新するTodoItemインスタンスのID
+   * @param id 進捗情報を更新するgiftItemインスタンスのID
    * @return 変更操作が完了したがどうかを示す真偽値
    */
-  public boolean updateProgress(String id) {
+  public boolean updateReturned(String id) {
     try (Connection con = getConnection()) {
-      String sql = "SELECT progress FROM todoItems WHERE id = ?";
+
+      String sql = "UPDATE giftItems SET hasGaveReturn = ? WHERE id = ?";
       PreparedStatement ps = con.prepareStatement(sql);
 
-      ps.setString(1, id);
+      ps.setString(1, "返礼済み");
+      ps.setString(2, id);
 
-      String nextProgress;
-
-      try (ResultSet rs = ps.executeQuery()) {
-
-        if (rs.next()) {
-          String result = rs.getString("progress");
-          if (result.equals("未実施")) {
-            nextProgress = "実施中";
-          } else if (result.equals("実施中")) {
-            nextProgress = "完了済";
-          } else {
-            return delete(id);
-          }
-
-        } else {
-          return false;
-        }
-      }
-
-      String sql2 = "UPDATE todoItems SET progress = ? WHERE id = ?";
-      PreparedStatement ps2 = con.prepareStatement(sql2);
-
-      ps2.setString(1, nextProgress);
-      ps2.setString(2, id);
-
-      int result2 = ps2.executeUpdate();
+      int result2 = ps.executeUpdate();
 
       if (result2 != 1) {
         return false;
@@ -93,17 +70,17 @@ public class GiftItemDAO extends DAO {
    *
    * @return テーブルの全情報を格納したＬｉｓｔ
    */
-  public List<TodoItem> selectAll() {
-    List<TodoItem> todoItemList = new ArrayList<>();
+  public List<GiftItem> selectAll() {
+    List<GiftItem> todoItemList = new ArrayList<>();
 
     try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM todoItems";
+      String sql = "SELECT * FROM GiftItems";
       PreparedStatement ps = con.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          TodoItem todoItem = new TodoItem();
-          todoItem.setId(rs.getString("id"));
+          GiftItem giftItem = new GiftItem();
+          giftItem.setId(rs.getString("id"));
           todoItem.setText(rs.getString("text"));
           todoItem.setProgress(rs.getString("progress"));
           todoItemList.add(todoItem);
