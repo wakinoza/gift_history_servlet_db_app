@@ -73,7 +73,7 @@ public class GiftItem implements Serializable {
     return this.needReturn;
   }
 
-  public String gethasGaveReturn() {
+  public String getHasGaveReturn() {
     return this.hasGaveReturn;
   }
 
