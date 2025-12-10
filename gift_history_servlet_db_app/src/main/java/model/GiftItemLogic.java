@@ -2,11 +2,17 @@ package model;
 
 import java.util.List;
 import bean.GiftItem;
+import dao.GiftItemDAO;
 
 /**
  * Giteitemの処理を司るビジネスロジッククラス.
  */
 public class GiftItemLogic {
+
+  public List<GiftItem> getAllGiftItem() {
+    GiftItemDAO giftItemDao = new GiftItemDAO();
+    return giftItemDao.selectAll();
+  }
 
   /**
    * GiftItemインスタンスをgiftoItemListに追加するメソッド.
@@ -24,7 +30,7 @@ public class GiftItemLogic {
    * @param id 検索したいGiftItemインスタンスのid
    * @param giftItemList GiftItemのList
    */
-  public GiftItem getGiftItem(String id, List<GiftItem> giftItemList) {
+  public GiftItem getGiftItem(String id) {
     for (GiftItem giftItem : giftItemList) {
       if (giftItem.getId().equals(id)) {
         return giftItem;

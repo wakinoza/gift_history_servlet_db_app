@@ -70,6 +70,44 @@ public class GiftItemDAO extends DAO {
    *
    * @return テーブルの全情報を格納したＬｉｓｔ
    */
+  public GiftItem select(String id) {
+
+    try (Connection con = getConnection()) {
+      String sql = "SELECT * FROM GiftItems WHERE = ?";
+      PreparedStatement ps = con.prepareStatement(sql);
+
+      ps.setString(1, id);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+          GiftItem giftItem = new GiftItem();
+          giftItem.setId(rs.getString("id"));
+          giftItem.setWhat(rs.getString("what"));
+          giftItem.setWhen(rs.getString("when"));
+          giftItem.setWho(rs.getString("who"));
+          giftItem.setWhy(rs.getString("why"));
+          giftItem.setHowMuch(rs.getString("howMuch"));
+          giftItem.setNeedReturn(rs.getString("needReturn"));
+          giftItem.setHasGaveReturn(rs.getString("hasGaveReturn"));
+
+          return giftItem;
+        } else {
+
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+
+
+  }
+
+  /**
+   * . テーブルの全情報をListに変換するメソッド
+   *
+   * @return テーブルの全情報を格納したＬｉｓｔ
+   */
   public List<GiftItem> selectAll() {
     List<GiftItem> giftItemList = new ArrayList<>();
 

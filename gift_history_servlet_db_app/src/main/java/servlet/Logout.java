@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +24,6 @@ public class Logout extends HttpServlet {
     HttpSession session = request.getSession();
     session.invalidate();
 
-    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/logout.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("WEB-INF/jsp/logout.jsp").forward(request, response);
   }
 }

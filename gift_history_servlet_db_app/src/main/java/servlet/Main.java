@@ -25,17 +25,15 @@ public class Main extends HttpServlet {
    * . @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
    */
   @Override
-  @SuppressWarnings("unchecked")
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    ServletContext application = this.getServletContext();
-    List<GiftItem> giftItemList = (List<GiftItem>) application.getAttribute("giftItemList");
+    GiftItemLogic giftItemLogic = new GiftItemLogic();
+    List<GiftItem> giftItemList = giftItemLogic.getAllGiftItem();
 
     if (giftItemList == null) {
       giftItemList = new ArrayList<>();
-      application.setAttribute("giftItemList", giftItemList);
     }
-
+    request.setAttribute("giftItemList", giftItemList);
     request.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(request, response);
 
   }
@@ -44,11 +42,9 @@ public class Main extends HttpServlet {
    * . @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
    */
   @Override
-  @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    ServletContext application = this.getServletContext();
-    List<GiftItem> giftItemList = (List<GiftItem>) application.getAttribute("giftItemList");
+
 
     String id = request.getParameter("id");
 
@@ -56,9 +52,17 @@ public class Main extends HttpServlet {
     GiftItem currentGiftItem;
 
     try {
-      currentGiftItem = giftItemLogic.getGiftItem(id, giftItemList);
-      application.setAttribute("currentGiftItem", currentGiftItem);
-      response.sendRedirect("ViewGiftDetail");
+      currentGiftItem = giftItemLogic.getGiftItem(id);
+
+      if (currentGiftItem != null) {
+        ServletContext application = this.getServletContext();
+        application.setAttribute("currentGiftItem", currentGiftItem);
+        response.sendRedirect("ViewGiftDetail");
+      } else {
+        String errorMsg = "指定したいただきもの情報がみつかりませんでした";
+        request.setAttribute("errorMsg", errorMsg);
+        request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+      }
 
     } catch (NoSuchElementException e) {
       String errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
