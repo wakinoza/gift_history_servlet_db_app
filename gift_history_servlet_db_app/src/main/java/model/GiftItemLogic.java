@@ -41,7 +41,7 @@ public class GiftItemLogic {
    */
   public void returned(String id, List<GiftItem> giftItemList) {
     GiftItem currentGiftItem = getGiftItem(id, giftItemList);
-    currentGiftItem.sethasGaveReturn("返礼済み");
+    currentGiftItem.setHasGaveReturn("返礼済み");
   }
 
   /**

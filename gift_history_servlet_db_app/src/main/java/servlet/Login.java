@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,16 +26,14 @@ public class Login extends HttpServlet {
       throws ServletException, IOException {
     String name = request.getParameter("name");
     String pass = request.getParameter("pass");
-    User user = new User(name, pass);
     LoginLogic loginLogic = new LoginLogic();
-    boolean isLogin = loginLogic.execute(user);
+    User loginUser = loginLogic.execute(name, pass);
 
-    if (isLogin) {
+    if (loginUser != null) {
       HttpSession session = request.getSession();
-      session.setAttribute("loginUser", user);
+      session.setAttribute("loginUser", loginUser);
     }
-    RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/loginResult.jsp");
-    dispatcher.forward(request, response);
+    request.getRequestDispatcher("WEB-INF/jsp/loginResult.jsp").forward(request, response);
   }
 }
 

@@ -1,6 +1,7 @@
 package model;
 
 import bean.User;
+import dao.UserDAO;
 
 /**
  * ログイン時の認証を行うクラス.
@@ -13,11 +14,9 @@ public class LoginLogic {
    * @param user Userクラスのインスタンス
    * @return 認証の可否
    */
-  public boolean execute(User user) {
-    if (user.getPass().equals("1234")) {
-      return true;
-    }
-    return false;
+  public User execute(String name, String pass) {
+    UserDAO userDao = new UserDAO();
+    return userDao.select(name, pass);
   }
 }
 
