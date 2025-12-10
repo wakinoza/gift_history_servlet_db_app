@@ -71,7 +71,7 @@ public class GiftItemDAO extends DAO {
    * @return テーブルの全情報を格納したＬｉｓｔ
    */
   public List<GiftItem> selectAll() {
-    List<GiftItem> todoItemList = new ArrayList<>();
+    List<GiftItem> giftItemList = new ArrayList<>();
 
     try (Connection con = getConnection()) {
       String sql = "SELECT * FROM GiftItems";
@@ -81,16 +81,22 @@ public class GiftItemDAO extends DAO {
         while (rs.next()) {
           GiftItem giftItem = new GiftItem();
           giftItem.setId(rs.getString("id"));
-          todoItem.setText(rs.getString("text"));
-          todoItem.setProgress(rs.getString("progress"));
-          todoItemList.add(todoItem);
+          giftItem.setWhat(rs.getString("what"));
+          giftItem.setWhen(rs.getString("when"));
+          giftItem.setWho(rs.getString("who"));
+          giftItem.setWhy(rs.getString("why"));
+          giftItem.setHowMuch(rs.getString("howMuch"));
+          giftItem.setNeedReturn(rs.getString("needReturn"));
+          giftItem.setHasGaveReturn(rs.getString("hasGaveReturn"));
+
+          giftItemList.add(giftItem);
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-    return todoItemList;
+    return giftItemList;
   }
 
   /**

@@ -109,7 +109,7 @@ public class GiftItem implements Serializable {
     this.needReturn = needReturn;
   }
 
-  public void sethasGaveReturn(String hasGaveReturn) {
+  public void setHasGaveReturn(String hasGaveReturn) {
     this.hasGaveReturn = hasGaveReturn;
   }
 
