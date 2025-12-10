@@ -100,14 +100,14 @@ public class GiftItemDAO extends DAO {
   }
 
   /**
-   * . 指定されたTodoItemインスタンスの情報を削除するメソッド
+   * . 指定されたgiftItemインスタンスの情報を削除するメソッド
    *
-   * @param id 削除するTodoItemインスタンスのID
+   * @param id 削除するgiftItemインスタンスのID
    * @return 削除操作が完了したがどうかを示す真偽値
    */
   public boolean delete(String id) {
     try (Connection con = getConnection()) {
-      String sql = "DELETE FROM todoItems WHERE id = ?";
+      String sql = "DELETE FROM giftItems WHERE id = ?";
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, id);
