@@ -5,14 +5,31 @@ import bean.GiftItem;
 import dao.GiftItemDAO;
 
 /**
- * Giteitemの処理を司るビジネスロジッククラス.
+ * GiteItemの処理を司るビジネスロジッククラス.
  */
 public class GiftItemLogic {
 
+  /**
+   * 指定のidを持つGiftItemインスタンスを検索するメソッド.
+   *
+   * @param id 検索したいGiftItemインスタンスのid
+   * @param giftItemList GiftItemのList
+   */
+  public GiftItem getGiftItem(String id) {
+    GiftItemDAO giftItemDao = new GiftItemDAO();
+    return giftItemDao.select(id);
+  }
+
+  /**
+   * テーブルのすべてのGiftIteをListに抽出するメソッド
+   * 
+   * @return GiftItemのList
+   */
   public List<GiftItem> getAllGiftItem() {
     GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.selectAll();
   }
+
 
   /**
    * GiftItemインスタンスをgiftoItemListに追加するメソッド.
@@ -22,21 +39,6 @@ public class GiftItemLogic {
    */
   public void add(GiftItem giftItem, List<GiftItem> giftItemList) {
     giftItemList.add(0, giftItem);
-  }
-
-  /**
-   * 指定のidを持つGiftItemインスタンスを検索するメソッド.
-   *
-   * @param id 検索したいGiftItemインスタンスのid
-   * @param giftItemList GiftItemのList
-   */
-  public GiftItem getGiftItem(String id) {
-    for (GiftItem giftItem : giftItemList) {
-      if (giftItem.getId().equals(id)) {
-        return giftItem;
-      }
-    }
-    throw new java.util.NoSuchElementException("指定されたID (" + id + ") のGiftItemが見つかりません。");
   }
 
   /**
