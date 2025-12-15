@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class GiftItem implements Serializable {
   private String id;
   private String what;
-  private String when;
+  private String whenis;
   private String who;
   private String why;
   private String howMuch;
@@ -31,10 +31,10 @@ public class GiftItem implements Serializable {
    * @param howMuch いくらぐらい
    * @param needReturn 返礼が必要か
    */
-  public GiftItem(String what, String when, String who, String why, String howMuch,
+  public GiftItem(String what, String whenis, String who, String why, String howMuch,
       String needReturn) {
     this.what = what;
-    this.when = when;
+    this.whenis = whenis;
     this.who = who;
     this.why = why;
     this.howMuch = howMuch;
@@ -52,8 +52,8 @@ public class GiftItem implements Serializable {
     return this.what;
   }
 
-  public String getWhen() {
-    return this.when;
+  public String getWhenis() {
+    return this.whenis;
   }
 
   public String getWho() {
@@ -89,7 +89,7 @@ public class GiftItem implements Serializable {
   }
 
   public void setWhen(String when) {
-    this.when = when;
+    this.whenis = when;
   }
 
   public void setWho(String who) {
