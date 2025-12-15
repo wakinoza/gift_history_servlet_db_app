@@ -31,9 +31,8 @@ public class GiftItem implements Serializable {
    * @param howMuch いくらぐらい
    * @param needReturn 返礼が必要か
    */
-  public GiftItem(String id, String what, String when, String who, String why, String howMuch,
+  public GiftItem(String what, String when, String who, String why, String howMuch,
       String needReturn) {
-    this.id = id;
     this.what = what;
     this.when = when;
     this.who = who;
