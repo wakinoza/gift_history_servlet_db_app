@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import bean.GiftItem;
 import model.GiftItemLogic;
 
 /**
@@ -42,8 +43,9 @@ public class NewGift extends HttpServlet {
 
     GiftItemLogic giftItemLogic = new GiftItemLogic();
     try {
-      boolean result = giftItemLogic
-          .add(giftItemLogic.createNewGiftItem(what, when, who, why, howMuch, needReturn));
+      GiftItem newGiftItem =
+          giftItemLogic.createNewGiftItem(what, when, who, why, howMuch, needReturn);
+      boolean result = giftItemLogic.add(newGiftItem);
 
       if (result) {
         response.sendRedirect("Main");
