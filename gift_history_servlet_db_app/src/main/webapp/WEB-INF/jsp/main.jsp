@@ -25,10 +25,10 @@
          <span style="margin-right: 15px;">
          <c:choose>
            <c:when test="${gift.needReturn == '必要'}">
-             ${gift.when} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn} : ${gift.hasGaveReturn}
+             ${gift.whenis} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn} : ${gift.hasGaveReturn}
            </c:when>
            <c:otherwise>
-             ${gift.when} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn}
+             ${gift.whenis} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn}
            </c:otherwise>  
          </c:choose>
          </span>

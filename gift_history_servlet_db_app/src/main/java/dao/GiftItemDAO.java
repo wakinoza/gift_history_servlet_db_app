@@ -22,7 +22,7 @@ public class GiftItemDAO extends DAO {
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, giftItem.getWhat());
-      ps.setString(2, giftItem.getWhen());
+      ps.setString(2, giftItem.getWhenis());
       ps.setString(3, giftItem.getWho());
       ps.setString(4, giftItem.getWhy());
       ps.setString(5, giftItem.getHowMuch());
@@ -83,7 +83,7 @@ public class GiftItemDAO extends DAO {
           GiftItem giftItem = new GiftItem();
           giftItem.setId(rs.getString("id"));
           giftItem.setWhat(rs.getString("what"));
-          giftItem.setWhen(rs.getString("when"));
+          giftItem.setWhenis(rs.getString("whenis"));
           giftItem.setWho(rs.getString("who"));
           giftItem.setWhy(rs.getString("why"));
           giftItem.setHowMuch(rs.getString("howMuch"));
@@ -120,7 +120,7 @@ public class GiftItemDAO extends DAO {
           GiftItem giftItem = new GiftItem();
           giftItem.setId(rs.getString("id"));
           giftItem.setWhat(rs.getString("what"));
-          giftItem.setWhen(rs.getString("when"));
+          giftItem.setWhenis(rs.getString("whenis"));
           giftItem.setWho(rs.getString("who"));
           giftItem.setWhy(rs.getString("why"));
           giftItem.setHowMuch(rs.getString("howMuch"));

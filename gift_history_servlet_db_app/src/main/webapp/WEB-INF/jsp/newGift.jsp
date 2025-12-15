@@ -8,7 +8,7 @@
 <h2>記録したい頂き物の情報を入力してください</h2>
  <form action="NewGift" method= "post">
    <p>いただいた品物 : <input type="text" name="what"></p>
-   <p>いただい日付   : <input type="date" name="when" min="2020-01-01" max="2030-12-31"></p> 
+   <p>いただい日付   : <input type="date" name="whenis" min="2020-01-01" max="2030-12-31"></p> 
    <p>贈り主        : <input type="text" name="who">さん</p>
    <p>贈られた理由   : <input type="text" name="why"></p>
    <p>おおよその値段  : <input type="text" name="howMuch">円ほど</p>

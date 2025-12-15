@@ -35,7 +35,7 @@ public class NewGift extends HttpServlet {
       throws ServletException, IOException {
 
     String what = request.getParameter("what");
-    String when = request.getParameter("when");
+    String whenis = request.getParameter("when");
     String who = request.getParameter("who");
     String why = request.getParameter("why");
     String howMuch = request.getParameter("howMuch");
@@ -44,7 +44,7 @@ public class NewGift extends HttpServlet {
     GiftItemLogic giftItemLogic = new GiftItemLogic();
     try {
       GiftItem newGiftItem =
-          giftItemLogic.createNewGiftItem(what, when, who, why, howMuch, needReturn);
+          giftItemLogic.createNewGiftItem(what, whenis, who, why, howMuch, needReturn);
       boolean result = giftItemLogic.add(newGiftItem);
 
       if (result) {

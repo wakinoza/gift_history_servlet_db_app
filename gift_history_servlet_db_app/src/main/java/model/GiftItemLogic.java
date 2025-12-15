@@ -12,20 +12,20 @@ import dao.GiftItemDAO;
  */
 public class GiftItemLogic {
 
-  public GiftItem createNewGiftItem(String what, String when, String who, String why,
+  public GiftItem createNewGiftItem(String what, String whenis, String who, String why,
       String howMuch, String needReturn) {
 
     if (what == null || what.length() == 0) {
       what = "未回答";
     }
 
-    if (when == null || when.length() == 0) {
-      when = "未回答";
+    if (whenis == null || whenis.length() == 0) {
+      whenis = "未回答";
     } else {
       DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-      LocalDate localDateWhen = LocalDate.parse(when, formatter2);
+      LocalDate localDateWhen = LocalDate.parse(whenis, formatter2);
       DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-      when = formatter3.format(localDateWhen);
+      whenis = formatter3.format(localDateWhen);
     }
 
     if (who == null || who.length() == 0) {
@@ -48,7 +48,7 @@ public class GiftItemLogic {
     LocalDateTime now = LocalDateTime.now();
     formatter.format(now);
 
-    GiftItem giftItem = new GiftItem(what, when, who, why, howMuch, needReturn);
+    GiftItem giftItem = new GiftItem(what, whenis, who, why, howMuch, needReturn);
 
     return giftItem;
   }

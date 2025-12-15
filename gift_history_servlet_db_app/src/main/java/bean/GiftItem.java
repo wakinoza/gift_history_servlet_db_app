@@ -88,8 +88,8 @@ public class GiftItem implements Serializable {
     this.what = what;
   }
 
-  public void setWhen(String when) {
-    this.whenis = when;
+  public void setWhenis(String whenis) {
+    this.whenis = whenis;
   }
 
   public void setWho(String who) {

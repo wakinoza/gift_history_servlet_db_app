@@ -8,7 +8,7 @@
    <h2　style="margin: 0;">頂き物の詳細</h2>
 </div>
 <div style="margin: 5px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">
-<p>いただいた日付：${currentGiftItem.when}</p>
+<p>いただいた日付：${currentGiftItem. whenis}</p>
 <p>いただいた品物：${currentGiftItem.what}</p>
 <p>贈り主：${currentGiftItem.who}さん</p>
 <p>贈られた理由：${currentGiftItem.why}</p>
