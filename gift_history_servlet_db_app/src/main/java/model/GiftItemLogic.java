@@ -79,7 +79,6 @@ public class GiftItemLogic {
    * GiftItemインスタンスをgiftoItemListに追加するメソッド.
    *
    * @param giftItem GiftItemインスタンス
-   * @param giftItemList GiftItemのList
    */
   public boolean add(GiftItem giftItem) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
@@ -90,22 +89,20 @@ public class GiftItemLogic {
    * 指定のidを持つGiftItemインスタンスのhasGaveReturnフィールドを変更するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
-   * @param giftItemList GiftItemのList
    */
-  public void returned(String id, List<GiftItem> giftItemList) {
-    GiftItem currentGiftItem = getGiftItem(id, giftItemList);
-    currentGiftItem.setHasGaveReturn("返礼済み");
+  public boolean returned(String id) {
+    GiftItemDAO giftItemDao = new GiftItemDAO();
+    return giftItemDao.updateReturned(id);
   }
 
   /**
    * 指定のidを持つGiftItemインスタンスを削除するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
-   * @param giftItemList GiftItemのList
    */
-  public void remove(String id, List<GiftItem> giftItemList) {
-    GiftItem currentGiftItem = getGiftItem(id, giftItemList);
-    giftItemList.remove(giftItemList.indexOf(currentGiftItem));
+  public boolean remove(String id) {
+    GiftItemDAO giftItemDao = new GiftItemDAO();
+    return giftItemDao.delete(id);
   }
 }
 

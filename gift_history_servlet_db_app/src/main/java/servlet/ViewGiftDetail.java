@@ -1,15 +1,12 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.NoSuchElementException;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import bean.GiftItem;
 import model.GiftItemLogic;
 
 /**
@@ -32,29 +29,30 @@ public class ViewGiftDetail extends HttpServlet {
    * doPostメソッド.
    */
   @Override
-  @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    ServletContext application = this.getServletContext();
-    List<GiftItem> giftItemList = (List<GiftItem>) application.getAttribute("giftItemList");
-    if (giftItemList == null) {
-      giftItemList = new java.util.ArrayList<>();
-      application.setAttribute("giftItemList", giftItemList);
-    }
 
     String id = request.getParameter("id");
     String action = request.getParameter("action");
     GiftItemLogic giftItemLogic = new GiftItemLogic();
 
     try {
+      boolean result;
       if ("returned".equals(action)) {
-        giftItemLogic.returned(id, giftItemList);
-      } else if ("remove".equals(action)) {
-        giftItemLogic.remove(id, giftItemList);
+        result = giftItemLogic.returned(id);
+      } else {
+        result = giftItemLogic.remove(id);
       }
-      application.setAttribute("giftItemList", giftItemList);
-      response.sendRedirect("Main");
+
+      if (result) {
+        response.sendRedirect("Main");
+      } else {
+        String errorMsg = " 指定した処理が実行できませんでした";
+        request.setAttribute("errorMsg", errorMsg);
+        request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+      }
+
 
     } catch (NoSuchElementException e) {
       String errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
