@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import bean.GiftItem;
 
+/**
+ * GiftItemsテーブル操作をつかさどるクラス
+ */
 public class GiftItemDAO extends DAO {
 
   /**
@@ -99,8 +102,6 @@ public class GiftItemDAO extends DAO {
       e.printStackTrace();
     }
     return null;
-
-
   }
 
   /**
@@ -133,7 +134,6 @@ public class GiftItemDAO extends DAO {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     return giftItemList;
   }
 
