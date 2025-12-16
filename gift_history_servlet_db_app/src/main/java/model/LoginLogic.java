@@ -11,8 +11,9 @@ public class LoginLogic {
   /**
    * ログイン時の認証を行うメソッド.
    *
-   * @param user Userクラスのインスタンス
-   * @return 認証の可否
+   * @param name ユーザー名
+   * @param pass パスワード
+   * @return 認証されたUserインスタンス
    */
   public User execute(String name, String pass) {
     UserDAO userDao = new UserDAO();
