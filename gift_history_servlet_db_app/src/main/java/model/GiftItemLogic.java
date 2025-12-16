@@ -12,6 +12,17 @@ import dao.GiftItemDAO;
  */
 public class GiftItemLogic {
 
+  /**
+   * GiftItemインスタンスを作成するメソッド
+   *
+   * @param what 何を頂いたか
+   * @param whenis いつ頂いたか
+   * @param who だれから頂いたか
+   * @param why 頂いた理由
+   * @param howMuch 予想価格
+   * @param needReturn 返礼が必要かどうか
+   * @return 新しいGiftItemクラス
+   */
   public GiftItem createNewGiftItem(String what, String whenis, String who, String why,
       String howMuch, String needReturn) {
 
@@ -57,7 +68,7 @@ public class GiftItemLogic {
    * 指定のidを持つGiftItemインスタンスを検索するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
-   * @param giftItemList GiftItemのList
+   * @return 検索で取得したGiftItemインスタンス
    */
   public GiftItem getGiftItem(String id) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
@@ -79,6 +90,7 @@ public class GiftItemLogic {
    * GiftItemインスタンスをgiftoItemListに追加するメソッド.
    *
    * @param giftItem GiftItemインスタンス
+   * @return 追加操作が完了したがどうかを示す真偽値
    */
   public boolean add(GiftItem giftItem) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
@@ -89,6 +101,7 @@ public class GiftItemLogic {
    * 指定のidを持つGiftItemインスタンスのhasGaveReturnフィールドを変更するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
+   * @return 変更操作が完了したがどうかを示す真偽値
    */
   public boolean returned(String id) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
@@ -99,6 +112,7 @@ public class GiftItemLogic {
    * 指定のidを持つGiftItemインスタンスを削除するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
+   * @return 削除操作が完了したがどうかを示す真偽値
    */
   public boolean remove(String id) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
