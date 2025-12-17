@@ -6,7 +6,7 @@
 <c:choose>
  <c:when test="${empty loginUser}">
   <p>ログインに失敗しました</p>
-  <a href="index.jsp">TOPへ</a>
+  <a href="index.jsp">ログイン画面へ戻る</a>
  </c:when>
  <c:otherwise>
   <p>ログインに成功しました</p>
