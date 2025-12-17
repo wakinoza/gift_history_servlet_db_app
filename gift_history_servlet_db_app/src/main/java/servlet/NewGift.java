@@ -35,7 +35,7 @@ public class NewGift extends HttpServlet {
       throws ServletException, IOException {
 
     String what = request.getParameter("what");
-    String whenis = request.getParameter("when");
+    String whenis = request.getParameter("whenis");
     String who = request.getParameter("who");
     String why = request.getParameter("why");
     String howMuch = request.getParameter("howMuch");
