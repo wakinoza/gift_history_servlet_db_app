@@ -21,7 +21,7 @@ public class GiftItemDAO extends DAO {
   public boolean insert(GiftItem giftItem) {
     try (Connection con = getConnection()) {
       String sql =
-          "INSERT INTO giftItems (what, when, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
+          "INSERT INTO giftItems (what, whenis, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, giftItem.getWhat());
