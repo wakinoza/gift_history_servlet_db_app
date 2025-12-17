@@ -76,7 +76,7 @@ public class GiftItemDAO extends DAO {
   public GiftItem select(String id) {
 
     try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM GiftItems WHERE = ?";
+      String sql = "SELECT * FROM giftItems WHERE = ?";
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, id);
@@ -113,7 +113,7 @@ public class GiftItemDAO extends DAO {
     List<GiftItem> giftItemList = new ArrayList<>();
 
     try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM GiftItems";
+      String sql = "SELECT * FROM giftItems";
       PreparedStatement ps = con.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
