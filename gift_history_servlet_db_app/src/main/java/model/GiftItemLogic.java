@@ -70,7 +70,7 @@ public class GiftItemLogic {
    * @param id 検索したいGiftItemインスタンスのid
    * @return 検索で取得したGiftItemインスタンス
    */
-  public GiftItem getGiftItem(String id) {
+  public GiftItem findGiftItem(String id) {
     GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.select(id);
   }

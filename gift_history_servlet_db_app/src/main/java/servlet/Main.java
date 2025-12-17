@@ -52,7 +52,7 @@ public class Main extends HttpServlet {
     GiftItem currentGiftItem;
 
     try {
-      currentGiftItem = giftItemLogic.getGiftItem(id);
+      currentGiftItem = giftItemLogic.findGiftItem(id);
 
       if (currentGiftItem != null) {
         ServletContext application = this.getServletContext();
