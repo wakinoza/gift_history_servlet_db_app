@@ -1,14 +1,15 @@
 package model;
 
+import dao.GiftItemDAO;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import bean.GiftItem;
-import dao.GiftItemDAO;
+
+
 
 /**
- * GiteItemの処理を司るビジネスロジッククラス.
+ * GiftItemインスタンスの処理をつかさどるクラス.
  */
 public class GiftItemLogic {
 

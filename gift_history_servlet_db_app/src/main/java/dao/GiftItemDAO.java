@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import bean.GiftItem;
+import model.GiftItem;
+
 
 /**
  * GiftItemsテーブル操作をつかさどるクラス.

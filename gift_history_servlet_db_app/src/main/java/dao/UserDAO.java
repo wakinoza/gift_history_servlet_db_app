@@ -3,7 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import bean.User;
+import model.User;
+
 
 /** . todo_usersテーブルの操作を行うDAOクラス */
 public class UserDAO extends DAO {

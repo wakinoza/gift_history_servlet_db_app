@@ -1,14 +1,15 @@
 package servlet;
 
-import java.io.IOException;
-import java.util.NoSuchElementException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import bean.GiftItem;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+import model.GiftItem;
 import model.GiftItemLogic;
+
 
 /**
  * 頂き物の情報の新規登録を行うサーブレットクラス.
