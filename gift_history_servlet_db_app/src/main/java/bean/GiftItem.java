@@ -23,9 +23,8 @@ public class GiftItem implements Serializable {
   /**
    * コンストラクタ.
    *
-   * @param id ID
    * @param what 頂いたもの
-   * @param when 頂いた日
+   * @param whenis 頂いた日
    * @param who 贈り主
    * @param why 贈られた理由
    * @param howMuch いくらぐらい

@@ -76,7 +76,7 @@ public class GiftItemDAO extends DAO {
   public GiftItem select(String id) {
 
     try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM giftItems WHERE = ?";
+      String sql = "SELECT * FROM giftItems WHERE id = ?";
       PreparedStatement ps = con.prepareStatement(sql);
 
       ps.setString(1, id);
