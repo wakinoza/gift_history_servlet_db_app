@@ -8,14 +8,14 @@ import java.util.List;
 import bean.GiftItem;
 
 /**
- * GiftItemsテーブル操作をつかさどるクラス
+ * GiftItemsテーブル操作をつかさどるクラス.
  */
 public class GiftItemDAO extends DAO {
 
   /**
    * . テーブルにGiftItemインスタンスの情報を挿入するメソッド
    *
-   * @param GiftItem テーブルに挿入するGiftItemインスタンス
+   * @param giftItem テーブルに挿入するGiftItemインスタンス
    * @return 挿入操作が完了したがどうかを示す真偽値
    */
   public boolean insert(GiftItem giftItem) {
