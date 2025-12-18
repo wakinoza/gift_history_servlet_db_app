@@ -13,7 +13,7 @@ import dao.GiftItemDAO;
 public class GiftItemLogic {
 
   /**
-   * GiftItemインスタンスを作成するメソッド
+   * GiftItemインスタンスを作成するメソッド.
    *
    * @param what 何を頂いたか
    * @param whenis いつ頂いたか
@@ -76,7 +76,7 @@ public class GiftItemLogic {
   }
 
   /**
-   * テーブルのすべてのGiftIteをListに抽出するメソッド
+   * テーブルのすべてのGiftIteをListに抽出するメソッド.
    * 
    * @return GiftItemのList
    */
