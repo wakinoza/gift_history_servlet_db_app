@@ -15,6 +15,9 @@
 
 <img width="1578" height="984" alt="image" src="https://github.com/user-attachments/assets/61586411-f488-4da8-8141-e8b256ab9117" />
 
+<img width="1038" height="1180" alt="image" src="https://github.com/user-attachments/assets/13c108c7-fdfe-4654-8bd5-aec2a3ea8b6f" />
+
+
 ## 主な機能
 
 ※ ユーザーから見た機能は、前作と同一です。
