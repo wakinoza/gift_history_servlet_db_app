@@ -13,6 +13,8 @@
 内部実装を中心に改修を行い、サーバー再起動後もデータが保持される
 実用的なWebアプリケーションへと進化させました。
 
+<img width="1578" height="984" alt="image" src="https://github.com/user-attachments/assets/61586411-f488-4da8-8141-e8b256ab9117" />
+
 ## 主な機能
 
 ※ ユーザーから見た機能は、前作と同一です。
