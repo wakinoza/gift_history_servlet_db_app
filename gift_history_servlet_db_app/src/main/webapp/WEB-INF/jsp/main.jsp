@@ -21,22 +21,26 @@
   
   <c:otherwise>
     <c:forEach var="gift" items="${giftItemList}">
-       <div style="margin: 5px; border-bottom: 1px solid #ccc; padding-bottom: 5px;　display: flex; align-items: center;">
-         <span style="margin-right: 15px;">
-         <c:choose>
-           <c:when test="${gift.needReturn == '必要'}">
-             ${gift.whenis} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn} : ${gift.hasGaveReturn}
-           </c:when>
-           <c:otherwise>
-             ${gift.whenis} に ${gift.who}さんより 「${gift.what}」 【返礼】 ${gift.needReturn}
-           </c:otherwise>  
-         </c:choose>
-         </span>
-         <form action="Main" method="post" style="display:inline-block;">
-           <input type="hidden" name="id" value="${gift.id}">
-           <button type="submit" style="background:blue; border:none; border-radius:5px; color:white; cursor:pointer; padding:5px;">詳細確認</button>
-         </form>  
-       </div>
+      <div style="...">
+        <span style="margin-right: 15px;">
+          <c:choose>
+            <c:when test="${gift.needReturn == '必要'}">
+              <c:out value="${gift.whenis}" /> に <c:out value="${gift.who}" />さんより 
+              「<c:out value="${gift.what}" />」 
+              【返礼】 <c:out value="${gift.needReturn}" /> : <c:out value="${gift.hasGaveReturn}" />
+            </c:when>
+          <c:otherwise>
+            <c:out value="${gift.whenis}" /> に <c:out value="${gift.who}" />さんより 
+              「<c:out value="${gift.what}" />」 
+              【返礼】 <c:out value="${gift.needReturn}" />
+            </c:otherwise>  
+          </c:choose>
+          </span>
+          <form action="Main" method="post" style="display:inline-block;">  
+            <input type="hidden" name="id" value="<c:out value='${gift.id}' />">
+            <button type="submit" ...>詳細確認</button>
+          </form>  
+        </div>
      </c:forEach>
   </c:otherwise>
 </c:choose>
