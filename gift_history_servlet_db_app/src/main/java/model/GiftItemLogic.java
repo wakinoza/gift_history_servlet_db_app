@@ -2,8 +2,8 @@ package model;
 
 import dao.GiftItemDAO;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 
@@ -12,6 +12,11 @@ import java.util.List;
  * GiftItemインスタンスの処理をつかさどるクラス.
  */
 public class GiftItemLogic {
+
+  /**
+   * 入力テキストの最大長
+   */
+  private final int MAX_TEXT_LENGTH = 1000;
 
   /**
    * GiftItemインスタンスを作成するメソッド.
@@ -27,42 +32,68 @@ public class GiftItemLogic {
   public GiftItem createNewGiftItem(String what, String whenis, String who, String why,
       String howMuch, String needReturn) {
 
-    if (what == null || what.length() == 0) {
-      what = "未回答";
+    if (!isValidGiftInput(what, whenis, who, why, howMuch)) {
+      return null;
     }
 
-    if (whenis == null || whenis.length() == 0) {
-      whenis = "未回答";
+    what = (what == null || what.isBlank()) ? "未回答" : what;
+    who = (who == null || who.isBlank()) ? "未回答" : who;
+    why = (why == null || why.isBlank()) ? "未回答" : why;
+    howMuch = (howMuch == null || howMuch.isBlank()) ? "未回答" : howMuch;
+    needReturn = (needReturn == null || needReturn.isBlank()) ? "未回答" : needReturn;
+
+    if (whenis != null && !whenis.isBlank()) {
+      try {
+        DateTimeFormatter inFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDateWhen = LocalDate.parse(whenis, inFormatter);
+        DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+        whenis = outFormatter.format(localDateWhen);
+      } catch (DateTimeParseException e) {
+        whenis = "日付不明";
+      }
     } else {
-      DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-      LocalDate localDateWhen = LocalDate.parse(whenis, formatter2);
-      DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-      whenis = formatter3.format(localDateWhen);
+      whenis = "未回答";
     }
 
-    if (who == null || who.length() == 0) {
-      who = "未回答";
+    return new GiftItem(what, whenis, who, why, howMuch, needReturn);
+  }
+
+  /**
+   * 入力値のバリデーションを行うメソッド
+   * 
+   * @param what 何を
+   * @param whenis いつ
+   * @param who だれから
+   * @param why なぜ
+   * @param howMuch いくらくらい
+   * @return バリデーションの結果
+   */
+  private boolean isValidGiftInput(String what, String whenis, String who, String why,
+      String howMuch) {
+
+    if (isExceeding(what) || isExceeding(who) || isExceeding(why) || isExceeding(howMuch)) {
+      return false;
     }
 
-    if (why == null || why.length() == 0) {
-      why = "未回答";
+    if (whenis != null && !whenis.isBlank()) {
+      try {
+        LocalDate.parse(whenis, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      } catch (DateTimeParseException e) {
+        return false;
+      }
     }
 
-    if (howMuch == null || howMuch.length() == 0) {
-      howMuch = "未回答";
-    }
+    return true;
+  }
 
-    if (needReturn == null || needReturn.length() == 0) {
-      needReturn = "未回答";
-    }
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
-    LocalDateTime now = LocalDateTime.now();
-    formatter.format(now);
-
-    GiftItem giftItem = new GiftItem(what, whenis, who, why, howMuch, needReturn);
-
-    return giftItem;
+  /**
+   * 文字列のバリデーションを行うメソッド
+   * 
+   * @param s 文字列
+   * @return バリデーション結果
+   */
+  private boolean isExceeding(String s) {
+    return s != null && s.length() > MAX_TEXT_LENGTH;
   }
 
   /**
@@ -72,6 +103,9 @@ public class GiftItemLogic {
    * @return 検索で取得したGiftItemインスタンス
    */
   public GiftItem findGiftItem(String id) {
+    if (id == null || !id.matches("^[0-9]+$")) {
+      return null;
+    }
     GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.select(id);
   }
@@ -116,6 +150,9 @@ public class GiftItemLogic {
    * @return 削除操作が完了したがどうかを示す真偽値
    */
   public boolean remove(String id) {
+    if (id == null || !id.matches("^[0-9]+$")) {
+      return false;
+    }
     GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.delete(id);
   }
