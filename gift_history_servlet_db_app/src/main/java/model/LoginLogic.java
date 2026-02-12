@@ -6,7 +6,10 @@ import dao.UserDAO;
  * ログイン時の認証を行うクラス.
  */
 public class LoginLogic {
+  /** ユーザ名の最大サイズ */
   final int MAX_NAME_LENGTH = 50;
+
+  /** パスワードの最大サイズ */
   final int MAX_PASS_LENGTH = 100;
 
   /**
