@@ -17,6 +17,7 @@
    <input type="radio" name="needReturn" value="必要">必要
    <input type="radio" name="needReturn" value="不要">必要ではない
    </p>
+   <input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}' />">
    <input type="submit" value="頂物の情報を記録">
  </form>
 
