@@ -3,7 +3,6 @@ package filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +13,6 @@ import model.User;
 /**
  * ログイン状態かを確認するフィルタークラス.
  */
-@WebFilter("/Main, /NewGift, /ViewGifts")
 public class CheckLoginFilter extends HttpFilter {
 
   /**
