@@ -23,11 +23,13 @@
 <c:if test="${currentGiftItem.needReturn == '必要' && currentGiftItem.hasGaveReturn == '未返礼'}">
   <form action="ViewGiftDetail?action=returned" method="post" style="display:inline-block;">
     <input type="hidden" name="id" value="<c:out value='${currentGiftItem.id}' />">
+    <input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}' />">
     <button type="submit" style="background:blue; border:none; border-radius:5px; color:white; cursor:pointer; padding:5px;">返礼済み</button>
   </form>
 </c:if>
 <form action="ViewGiftDetail?action=remove" method="post" style="display:inline-block;">
   <input type="hidden" name="id" value="<c:out value='${currentGiftItem.id}' />">
+  <input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}' />">
   <button type="submit" style="background:orange; border:none; border-radius:5px; cursor:pointer; padding:5px;">記録を削除</button>
 </form> 
 </div>
