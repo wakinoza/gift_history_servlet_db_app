@@ -56,8 +56,10 @@ public class ViewGiftDetail extends HttpServlet {
       boolean result;
       if ("returned".equals(action)) {
         result = giftItemLogic.returned(id);
-      } else {
+      } else if ("remove".equals(action)) {
         result = giftItemLogic.remove(id);
+      } else {
+        result = false;
       }
 
       if (result) {
