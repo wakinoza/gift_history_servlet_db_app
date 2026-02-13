@@ -62,6 +62,13 @@ public class NewGift extends HttpServlet {
     try {
       GiftItem newGiftItem =
           giftItemLogic.createNewGiftItem(what, whenis, who, why, howMuch, needReturn);
+
+      if (newGiftItem == null) {
+        request.setAttribute("errorMsg", "入力内容が正しくありません。");
+        request.getRequestDispatcher("/WEB-INF/jsp/newGift.jsp").forward(request, response);
+        return;
+      }
+
       boolean result = giftItemLogic.add(newGiftItem);
 
       if (result) {
