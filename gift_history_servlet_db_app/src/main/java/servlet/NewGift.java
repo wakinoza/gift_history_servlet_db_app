@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import model.GiftItem;
@@ -25,6 +26,12 @@ public class NewGift extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+    HttpSession session = request.getSession(false);
+    if (session != null) {
+      String csrfToken = (String) session.getAttribute("csrfToken");
+      request.setAttribute("csrfToken", csrfToken);
+    }
+
     request.getRequestDispatcher("WEB-INF/jsp/newGift.jsp").forward(request, response);
   }
 
@@ -34,6 +41,15 @@ public class NewGift extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
+    HttpSession session = request.getSession(false);
+    String sessionToken = (session != null) ? (String) session.getAttribute("csrfToken") : null;
+    String requestToken = request.getParameter("csrfToken");
+
+    if (sessionToken == null || !sessionToken.equals(requestToken)) {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN, "不正なリクエストです。");
+      return;
+    }
 
     String what = request.getParameter("what");
     String whenis = request.getParameter("whenis");
