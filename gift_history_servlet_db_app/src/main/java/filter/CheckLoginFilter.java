@@ -22,12 +22,12 @@ public class CheckLoginFilter extends HttpFilter {
   public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
-    HttpSession session = request.getSession();
-    User loginUser = (User) session.getAttribute("loginUser");
+    HttpSession session = request.getSession(false);
+    User loginUser = (session != null) ? (User) session.getAttribute("loginUser") : null;
 
     if (loginUser == null) {
       response.sendRedirect("index.jsp");
-
+      return;
     }
 
     chain.doFilter(request, response);
