@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import model.LoginLogic;
 import model.User;
+import util.CsrfUtil;
 
 
 /**
@@ -27,11 +28,25 @@ public class Login extends HttpServlet {
     String name = request.getParameter("name");
     String pass = request.getParameter("pass");
     LoginLogic loginLogic = new LoginLogic();
-    User loginUser = loginLogic.execute(name, pass);
+    User loginUser = null;
+    loginUser = loginLogic.execute(name, pass);
 
     if (loginUser != null) {
-      HttpSession session = request.getSession();
-      session.setAttribute("loginUser", loginUser);
+      HttpSession oldSession = request.getSession(false);
+      if (oldSession != null) {
+        oldSession.invalidate();
+      }
+      HttpSession newSession = request.getSession(true);
+      newSession.setAttribute("loginUser", loginUser);
+
+      String csrfToken = CsrfUtil.generateToken();
+      newSession.setAttribute("csrfToken", csrfToken);
+
+      String sessionId = newSession.getId();
+      String contextPath = request.getContextPath();
+      String cookieHeader = String.format("JSESSIONID=%s; Path=%s; HttpOnly; SameSite=Lax",
+          sessionId, (contextPath.isEmpty() ? "/" : contextPath));
+      response.setHeader("Set-Cookie", cookieHeader);
     }
     request.getRequestDispatcher("WEB-INF/jsp/loginResult.jsp").forward(request, response);
   }
