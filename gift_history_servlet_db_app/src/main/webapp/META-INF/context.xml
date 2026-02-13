@@ -5,7 +5,7 @@
     auth="Container"
     type="javax.sql.DataSource"
     driverClassName="com.mysql.cj.jdbc.Driver"
-    url="jdbc:mysql://localhost:3306/gift_db?serverTimezone=Asia/Tokyo&amp;useServerPrepStmts=true&amp;cachePrepStmts=true&amp;characterEncoding=UTF-8&amp;forceConnectionTimeZoneToSession=true"
+    url="jdbc:mysql://localhost:3306/gift_db?serverTimezone=Asia/Tokyo&amp;characterEncoding=UTF-8&amp;useServerPrepStmts=true"
     username="gift_user"
     password="gift_user"
     maxTotal="20"
@@ -13,3 +13,4 @@
     maxWaitMillis="-1"
    />
 </Context>
+
