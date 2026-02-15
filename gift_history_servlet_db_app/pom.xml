@@ -4,6 +4,10 @@
   <artifactId>gift_history_servlet_db_app</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -15,7 +19,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.3</version>
+        <version>3.4.0</version>
       </plugin>
     </plugins>
   </build>
@@ -35,7 +39,7 @@
     <dependency>
         <groupId>com.mysql</groupId>
         <artifactId>mysql-connector-j</artifactId>
-        <version>9.5.0</version> </dependency>
+        <version>8.4.0</version> </dependency>
 
     <dependency>
         <groupId>jakarta.servlet.jsp.jstl</groupId>
