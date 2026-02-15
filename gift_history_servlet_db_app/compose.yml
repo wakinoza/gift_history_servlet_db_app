@@ -21,6 +21,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+      start_period: 10s
     
   app:
     build: .
@@ -30,13 +31,13 @@ services:
     env_file:
       - .env
     environment:
-      - DB_HOST=/${DB_HOST}
+      - DB_HOST=${DB_HOST}
       - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER_NAME}  
       - MYSQL_PASSWORD=${DB_PASSWORD}
     depends_on:
-      - db:
-          condition: service_healthy
+      db:
+        condition: service_healthy
 
 volumes:
   db_data:
