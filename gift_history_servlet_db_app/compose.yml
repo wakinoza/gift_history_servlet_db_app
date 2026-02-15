@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.4
+    container_name: gift-db
+    env_file:
+      - .env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER_NAME}  
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3307:3306"
+    
+  app:
+    build: .
+    container_name: gift-app
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=db
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER_NAME}  
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    depends_on:
+      - db
+
+volumes:
+  db_data:
