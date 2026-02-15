@@ -22,6 +22,13 @@ public class CheckLoginFilter extends HttpFilter {
   public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
+    String path = request.getServletPath();
+
+    if (path.equals("/index.jsp") || path.equals("/Login") || path.startsWith("/css/")) {
+      chain.doFilter(request, response);
+      return;
+    }
+
     HttpSession session = request.getSession(false);
     User loginUser = (session != null) ? (User) session.getAttribute("loginUser") : null;
 

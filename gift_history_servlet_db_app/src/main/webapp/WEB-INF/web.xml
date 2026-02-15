@@ -29,15 +29,7 @@
   </filter>
   <filter-mapping>
     <filter-name>CheckLoginFilter</filter-name>
-    <url-pattern>/Main</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>CheckLoginFilter</filter-name>
-    <url-pattern>/NewGift</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>CheckLoginFilter</filter-name>
-    <url-pattern>/ViewGiftDetail</url-pattern>
+    <url-pattern>/*</url-pattern>
   </filter-mapping>
 
 </web-app>
