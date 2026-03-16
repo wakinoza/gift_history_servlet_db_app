@@ -21,12 +21,15 @@ public class User implements Serializable {
   public User() {}
 
   /**
-   * コンストラクタ.
-   *
-   * @param name ユーザー名
+   * コンストラクタ
+   * 
+   * @param id ID
+   * @param name ユーザ名
    * @param pass パスワード
+   * 
    */
-  public User(String name, String pass) {
+  public User(int id, String name, String pass) {
+    this.id = id;
     this.name = name;
     this.pass = pass;
   }
