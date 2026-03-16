@@ -20,6 +20,20 @@ public class GiftItemLogic {
   private final int MAX_TEXT_LENGTH = 1000;
 
   /**
+   * GiftIteDAOのインスタンス
+   */
+  private final GiftItemDAO giftItemDao;
+
+  /**
+   * .コンストラクタ
+   *
+   * @param giftItemDao
+   */
+  public GiftItemLogic(GiftItemDAO giftItemDao) {
+    this.giftItemDao = giftItemDao;
+  }
+
+  /**
    * GiftItemインスタンスを作成するメソッド.
    *
    * @param what 何を頂いたか
@@ -107,7 +121,6 @@ public class GiftItemLogic {
     if (id == null || !id.matches("^[0-9]+$")) {
       return null;
     }
-    GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.select(id);
   }
 
@@ -117,7 +130,6 @@ public class GiftItemLogic {
    * @return GiftItemのList
    */
   public List<GiftItem> getAllGiftItem() {
-    GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.selectAll();
   }
 
@@ -129,7 +141,6 @@ public class GiftItemLogic {
    * @return 追加操作が完了したがどうかを示す真偽値
    */
   public boolean add(GiftItem giftItem) {
-    GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.insert(giftItem);
   }
 
@@ -140,7 +151,6 @@ public class GiftItemLogic {
    * @return 変更操作が完了したがどうかを示す真偽値
    */
   public boolean returned(String id) {
-    GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.updateReturned(id);
   }
 
@@ -154,7 +164,6 @@ public class GiftItemLogic {
     if (id == null || !id.matches("^[0-9]+$")) {
       return false;
     }
-    GiftItemDAO giftItemDao = new GiftItemDAO();
     return giftItemDao.delete(id);
   }
 }
