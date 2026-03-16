@@ -47,23 +47,25 @@ public class GiftItemLogic {
   public GiftItem createNewGiftItem(String what, String whenis, String who, String why,
       String howMuch, String needReturn) {
 
-    if (!isValidGiftInput(what, whenis, who, why, howMuch)) {
-      return null;
-    }
-
     what = (what == null || what.isBlank()) ? "未回答" : what;
     who = (who == null || who.isBlank()) ? "未回答" : who;
     why = (why == null || why.isBlank()) ? "未回答" : why;
     howMuch = (howMuch == null || howMuch.isBlank()) ? "未回答" : howMuch;
     needReturn = (needReturn == null || needReturn.isBlank()) ? "未回答" : needReturn;
 
-    if (whenis != null && !whenis.isBlank()) {
+    if (whenis == null || whenis.isBlank()) {
+      whenis = "未回答";
+    } else {
+      if (!isValidDate(whenis)) {
+        return null;
+      }
       LocalDate localDateWhen = LocalDate.parse(whenis, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       whenis = DateTimeFormatter.ofPattern("yyyy年MM月dd日").format(localDateWhen);
-    } else {
-      whenis = "未回答";
     }
 
+    if (!isValidGiftInput(what, who, why, howMuch)) {
+      return null;
+    }
     return new GiftItem(what, whenis, who, why, howMuch, needReturn);
   }
 
@@ -77,22 +79,25 @@ public class GiftItemLogic {
    * @param howMuch いくらくらい
    * @return バリデーションの結果
    */
-  private boolean isValidGiftInput(String what, String whenis, String who, String why,
-      String howMuch) {
+  private boolean isValidGiftInput(String what, String who, String why, String howMuch) {
 
     if (isExceeding(what) || isExceeding(who) || isExceeding(why) || isExceeding(howMuch)) {
       return false;
     }
 
-    if (whenis != null && !whenis.isBlank()) {
-      try {
-        LocalDate.parse(whenis, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-      } catch (DateTimeParseException e) {
-        return false;
-      }
-    }
-
     return true;
+  }
+
+  /**
+   * 日付形式のみをチェックする専門メソッド
+   */
+  private boolean isValidDate(String whenis) {
+    try {
+      LocalDate.parse(whenis, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      return true;
+    } catch (DateTimeParseException e) {
+      return false;
+    }
   }
 
   /**
