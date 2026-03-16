@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import model.LoginLogic;
 import bean.User;
+import factory.LogicFactory;
 import util.CsrfUtil;
 
 
@@ -27,7 +28,7 @@ public class Login extends HttpServlet {
       throws ServletException, IOException {
     String name = request.getParameter("name");
     String pass = request.getParameter("pass");
-    LoginLogic loginLogic = new LoginLogic();
+    LoginLogic loginLogic = LogicFactory.createLoginLogic();
     User loginUser = null;
     loginUser = loginLogic.execute(name, pass);
 

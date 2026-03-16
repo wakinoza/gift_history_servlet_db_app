@@ -14,7 +14,6 @@ public class LogicFactory {
    * @return UserDAOを注入済みのLoginLogic
    */
   public static LoginLogic createLoginLogic() {
-    // ここでDAOを生成してLogicに渡す
     return new LoginLogic(new UserDAO());
   }
 
