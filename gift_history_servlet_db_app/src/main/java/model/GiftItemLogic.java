@@ -106,13 +106,23 @@ public class GiftItemLogic {
   }
 
   /**
+   * . IDをチェックするメソッド
+   * 
+   * @param id ID
+   * @return バリデーション結果
+   */
+  private boolean isInvalidId(String id) {
+    return id == null || !id.matches("^[0-9]+$");
+  }
+
+  /**
    * 指定のidを持つGiftItemインスタンスを検索するメソッド.
    *
    * @param id 検索したいGiftItemインスタンスのid
    * @return 検索で取得したGiftItemインスタンス
    */
   public GiftItem findGiftItem(String id) {
-    if (id == null || !id.matches("^[0-9]+$")) {
+    if (isInvalidId(id)) {
       return null;
     }
     return giftItemDao.select(id);
@@ -155,7 +165,7 @@ public class GiftItemLogic {
    * @return 削除操作が完了したがどうかを示す真偽値
    */
   public boolean remove(String id) {
-    if (id == null || !id.matches("^[0-9]+$")) {
+    if (isInvalidId(id)) {
       return false;
     }
     return giftItemDao.delete(id);
