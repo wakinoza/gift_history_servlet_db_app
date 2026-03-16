@@ -29,14 +29,14 @@ public class PasswordUtil {
     return encoder.matches(rawPassword, hashed);
   }
 
-  /**
-   * ハッシュ値を出力するメソッド.
-   *
-   * @param args
-   */
-  public static void main(String[] args) {
-    String myPass = "default_user_password";
-    System.out.println("生成されたハッシュ値: " + hash(myPass));
-  }
+  // /**
+  // * ハッシュ値を出力するメソッド.
+  // *
+  // * @param args
+  // */
+  // public static void main(String[] args) {
+  // String myPass = "default_user_password";
+  // System.out.println("生成されたハッシュ値: " + hash(myPass));
+  // }
 
 }
