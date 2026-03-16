@@ -9,6 +9,13 @@ public class PasswordUtil {
   private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
   /**
+   * プライベートコンストラクタでインスタンス化を禁止する
+   */
+  private PasswordUtil() {
+    throw new AssertionError("Instantiating utility class.");
+  }
+
+  /**
    * パスワードをハッシュ化するメソッド.
    * 
    * @param rawPassword ユーザー入力のパスワード
