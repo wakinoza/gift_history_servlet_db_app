@@ -1,6 +1,7 @@
 package model;
 
 import dao.UserDAO;
+import bean.User;
 
 /**
  * ログイン時の認証を行うクラス.
