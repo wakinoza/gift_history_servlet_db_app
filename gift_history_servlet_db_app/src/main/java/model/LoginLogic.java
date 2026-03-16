@@ -13,6 +13,18 @@ public class LoginLogic {
   /** パスワードの最大サイズ */
   final int MAX_PASS_LENGTH = 100;
 
+  /** UserDAOインスタンス */
+  private final UserDAO userDao;
+
+  /**
+   * . コンストラクタ
+   *
+   * @param userDao UserDAOのインスタンス
+   */
+  public LoginLogic(UserDAO userDao) {
+    this.userDao = userDao;
+  }
+
   /**
    * ログイン時の認証を行うメソッド.
    *
@@ -26,7 +38,6 @@ public class LoginLogic {
     if (!isValidInput(name, pass)) {
       return null;
     }
-    UserDAO userDao = new UserDAO();
     return userDao.select(name, pass);
   }
 
