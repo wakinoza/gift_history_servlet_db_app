@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import model.GiftItemLogic;
+import factory.LogicFactory;
 
 /**
  * 頂き物の詳細情報を参照のサーブレット.
@@ -50,7 +51,7 @@ public class ViewGiftDetail extends HttpServlet {
 
     String id = request.getParameter("id");
     String action = request.getParameter("action");
-    GiftItemLogic giftItemLogic = new GiftItemLogic();
+    GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
 
     try {
       boolean result;

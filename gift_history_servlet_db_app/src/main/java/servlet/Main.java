@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import model.GiftItemLogic;
 import bean.GiftItem;
+import factory.LogicFactory;
 
 
 /**
@@ -29,7 +30,7 @@ public class Main extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    GiftItemLogic giftItemLogic = new GiftItemLogic();
+    GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
     List<GiftItem> giftItemList = giftItemLogic.getAllGiftItem();
 
     if (giftItemList == null) {
@@ -50,7 +51,7 @@ public class Main extends HttpServlet {
 
     String id = request.getParameter("id");
 
-    GiftItemLogic giftItemLogic = new GiftItemLogic();
+    GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
     GiftItem currentGiftItem;
 
     try {

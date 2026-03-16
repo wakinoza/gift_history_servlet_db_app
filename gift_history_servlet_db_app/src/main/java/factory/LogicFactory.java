@@ -1,6 +1,8 @@
 package factory;
 
+import dao.GiftItemDAO;
 import dao.UserDAO;
+import model.GiftItemLogic;
 import model.LoginLogic;
 
 /**
@@ -17,5 +19,12 @@ public class LogicFactory {
     return new LoginLogic(new UserDAO());
   }
 
-  // 他のロジック（GiftLogicなど）が必要になったらここに追加していく
+  /**
+   * GiftItemDAOのインスタンスを生成する
+   *
+   * @return GiftItemDAOを注入済みのGiftItemLogic
+   */
+  public static GiftItemLogic createGiftItemLogic() {
+    return new GiftItemLogic(new GiftItemDAO());
+  }
 }

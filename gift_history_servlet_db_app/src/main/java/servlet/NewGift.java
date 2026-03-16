@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import model.GiftItemLogic;
 import bean.GiftItem;
+import factory.LogicFactory;
 
 
 /**
@@ -58,7 +59,7 @@ public class NewGift extends HttpServlet {
     String howMuch = request.getParameter("howMuch");
     String needReturn = request.getParameter("needReturn");
 
-    GiftItemLogic giftItemLogic = new GiftItemLogic();
+    GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
     try {
       GiftItem newGiftItem =
           giftItemLogic.createNewGiftItem(what, whenis, who, why, howMuch, needReturn);
