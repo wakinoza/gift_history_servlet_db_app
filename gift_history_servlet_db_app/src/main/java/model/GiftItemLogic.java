@@ -58,14 +58,8 @@ public class GiftItemLogic {
     needReturn = (needReturn == null || needReturn.isBlank()) ? "未回答" : needReturn;
 
     if (whenis != null && !whenis.isBlank()) {
-      try {
-        DateTimeFormatter inFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDateWhen = LocalDate.parse(whenis, inFormatter);
-        DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-        whenis = outFormatter.format(localDateWhen);
-      } catch (DateTimeParseException e) {
-        whenis = "日付不明";
-      }
+      LocalDate localDateWhen = LocalDate.parse(whenis, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      whenis = DateTimeFormatter.ofPattern("yyyy年MM月dd日").format(localDateWhen);
     } else {
       whenis = "未回答";
     }
