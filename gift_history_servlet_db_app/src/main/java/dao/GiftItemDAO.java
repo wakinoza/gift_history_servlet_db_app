@@ -37,11 +37,11 @@ public class GiftItemDAO extends DAO {
       if (result != 1) {
         return false;
       }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    return true;
   }
 
   /**
@@ -64,11 +64,11 @@ public class GiftItemDAO extends DAO {
       if (result2 != 1) {
         return false;
       }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    return true;
   }
 
   /**
@@ -157,11 +157,12 @@ public class GiftItemDAO extends DAO {
       if (result != 1) {
         return false;
       }
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
-    return true;
+
   }
 
 }
