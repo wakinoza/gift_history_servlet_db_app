@@ -98,13 +98,13 @@ public class GiftItemDAO extends DAO {
 
           return giftItem;
         } else {
-
+          return null;
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return null;
     }
-    return null;
   }
 
   /**
@@ -133,11 +133,13 @@ public class GiftItemDAO extends DAO {
 
           giftItemList.add(giftItem);
         }
+        return giftItemList;
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return giftItemList;
     }
-    return giftItemList;
+
   }
 
   /**
