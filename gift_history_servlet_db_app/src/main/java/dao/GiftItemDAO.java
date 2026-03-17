@@ -39,6 +39,7 @@ public class GiftItemDAO extends DAO {
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return false;
     }
     return true;
   }
@@ -65,6 +66,7 @@ public class GiftItemDAO extends DAO {
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return false;
     }
     return true;
   }
@@ -157,6 +159,7 @@ public class GiftItemDAO extends DAO {
       }
     } catch (Exception e) {
       e.printStackTrace();
+      return false;
     }
     return true;
   }
