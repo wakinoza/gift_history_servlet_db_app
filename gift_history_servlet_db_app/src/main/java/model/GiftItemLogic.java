@@ -47,6 +47,10 @@ public class GiftItemLogic {
   public GiftItem createNewGiftItem(String what, String whenis, String who, String why,
       String howMuch, String needReturn) {
 
+    if (!isValidGiftInput(what, who, why, howMuch)) {
+      return null;
+    }
+
     what = (what == null || what.isBlank()) ? "未回答" : what;
     who = (who == null || who.isBlank()) ? "未回答" : who;
     why = (why == null || why.isBlank()) ? "未回答" : why;
@@ -63,9 +67,6 @@ public class GiftItemLogic {
       whenis = DateTimeFormatter.ofPattern("yyyy年MM月dd日").format(localDateWhen);
     }
 
-    if (!isValidGiftInput(what, who, why, howMuch)) {
-      return null;
-    }
     return new GiftItem(what, whenis, who, why, howMuch, needReturn);
   }
 
@@ -175,5 +176,7 @@ public class GiftItemLogic {
     }
     return giftItemDao.delete(id);
   }
+
+
 }
 
