@@ -11,6 +11,13 @@ import model.LoginLogic;
 public class LogicFactory {
 
   /**
+   * . プライベートコンストラクタでインスタンス化を禁止する
+   */
+  private LogicFactory() {
+    throw new AssertionError("Utility class should not be instantiated.");
+  }
+
+  /**
    * LoginLogicのインスタンスを生成します.
    *
    * @return UserDAOを注入済みのLoginLogic
