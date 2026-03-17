@@ -48,26 +48,32 @@ class GiftItemLogicTest {
       assertThat(result).isNotNull();
       assertThat(result.getWhat()).isEqualTo("カタログギフト");
       assertThat(result.getWhenis()).isEqualTo("2026年03月16日");
+      assertThat(result.getWho()).isEqualTo("Alice");
+      assertThat(result.getWhy()).isEqualTo("結婚祝い");
+      assertThat(result.getHowMuch()).isEqualTo("5000");
+      assertThat(result.getNeedReturn()).isEqualTo("必要");
     }
 
     @ParameterizedTest
-    @MethodSource("provideBlankVariations")
-    @DisplayName("正常系：未入力（null/空文字/空白）の場合、『未回答』へ置換されること")
-    void testDefaultValueReplacement(String val, String date) {
-      // 全引数に「空白バリエーション」を渡して、三項演算子と短絡評価を網羅
-      GiftItem result = logic.createNewGiftItem(val, date, val, val, val, val);
+    @MethodSource("provideDefaultValuePatterns")
+    @DisplayName("正常系：様々な未入力パターンで、各項目が『未回答』に置換されること")
+    void testDefaultValueReplacement(String input, String expectedDate) {
+      GiftItem result = logic.createNewGiftItem(input, input, input, input, input, input);
 
-      assertThat(result).isNotNull();
-      if (date == null || date.isBlank()) {
-        assertThat(result.getWhenis()).isEqualTo("未回答");
-      }
       assertThat(result.getWhat()).isEqualTo("未回答");
       assertThat(result.getWho()).isEqualTo("未回答");
+      assertThat(result.getWhenis()).isEqualTo(expectedDate);
+      assertThat(result.getWhy()).isEqualTo("未回答");
+      assertThat(result.getHowMuch()).isEqualTo("未回答");
+      assertThat(result.getNeedReturn()).isEqualTo("未回答");
     }
 
-    static Stream<Arguments> provideBlankVariations() {
-      return Stream.of(Arguments.of(null, null), Arguments.of("", ""), Arguments.of(" ", " "));
+
+    static Stream<Arguments> provideDefaultValuePatterns() {
+      return Stream.of(Arguments.of(null, "未回答"), Arguments.of("", "未回答"),
+          Arguments.of(" ", "未回答"));
     }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"2026/03/16", "invalid"})
