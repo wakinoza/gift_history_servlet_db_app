@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import model.GiftItemLogic;
 import bean.GiftItem;
 import factory.LogicFactory;
@@ -60,32 +59,37 @@ public class NewGift extends HttpServlet {
     String needReturn = request.getParameter("needReturn");
 
     GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
+    String redirectPath = null;
+    String forwardPath = null;
+    String errorMsg = null;
+
     try {
       GiftItem newGiftItem =
           giftItemLogic.createNewGiftItem(what, whenis, who, why, howMuch, needReturn);
 
       if (newGiftItem == null) {
-        request.setAttribute("errorMsg", "入力内容が正しくありません。");
-        request.getRequestDispatcher("/WEB-INF/jsp/newGift.jsp").forward(request, response);
-        return;
-      }
-
-      boolean result = giftItemLogic.add(newGiftItem);
-
-      if (result) {
-        response.sendRedirect("Main");
-
+        errorMsg = "入力内容が正しくありません。";
+        forwardPath = "/WEB-INF/jsp/newGift.jsp";
       } else {
-        String errorMsg = "いただきものが追加できませんでした";
-        request.setAttribute("errorMsg", errorMsg);
-        request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        boolean result = giftItemLogic.add(newGiftItem);
+        if (result) {
+          redirectPath = "Main";
+        } else {
+          errorMsg = "いただきものが追加できませんでした";
+          forwardPath = "/WEB-INF/jsp/error.jsp";
+        }
       }
-
-    } catch (NoSuchElementException e) {
-      String errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
-      request.setAttribute("errorMsg", errorMsg);
+    } catch (Exception e) {
+      errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
       e.printStackTrace();
-      request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+      forwardPath = "/WEB-INF/jsp/error.jsp";
+    }
+
+    if (redirectPath != null) {
+      response.sendRedirect(redirectPath);
+    } else {
+      request.setAttribute("errorMsg", errorMsg);
+      request.getRequestDispatcher(forwardPath).forward(request, response);
     }
 
   }
