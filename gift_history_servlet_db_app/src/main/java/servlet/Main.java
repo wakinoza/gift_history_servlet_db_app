@@ -47,12 +47,11 @@ public class Main extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-
     String id = request.getParameter("id");
-
     GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
+
+    String redirectPath = null;
     String errorMsg = null;
-    String forwardPath = "/WEB-INF/jsp/error.jsp";
 
     try {
       GiftItem currentGiftItem = giftItemLogic.findGiftItem(id);
@@ -60,21 +59,20 @@ public class Main extends HttpServlet {
       if (currentGiftItem != null) {
         HttpSession session = request.getSession();
         session.setAttribute("currentGiftItem", currentGiftItem);
-        response.sendRedirect("ViewGiftDetail");
-        return;
-
+        redirectPath = "ViewGiftDetail";
       } else {
         errorMsg = "指定したいただきもの情報がみつかりませんでした";
       }
-
     } catch (Exception e) {
       errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
       e.printStackTrace();
     }
 
-    if (errorMsg != null) {
+    if (redirectPath != null) {
+      response.sendRedirect(redirectPath);
+    } else {
       request.setAttribute("errorMsg", errorMsg);
-      request.getRequestDispatcher(forwardPath).forward(request, response);
+      request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
     }
   }
 
