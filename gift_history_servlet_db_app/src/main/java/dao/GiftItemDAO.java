@@ -20,10 +20,10 @@ public class GiftItemDAO extends DAO {
    * @return 挿入操作が完了したがどうかを示す真偽値
    */
   public boolean insert(GiftItem giftItem) {
-    try (Connection con = getConnection()) {
-      String sql =
-          "INSERT INTO giftItems (what, whenis, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
-      PreparedStatement ps = con.prepareStatement(sql);
+    boolean status = false;
+    String sql =
+        "INSERT INTO giftItems (what, whenis, who, why, howMuch, needReturn, hasGaveReturn) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
       ps.setString(1, giftItem.getWhat());
       ps.setString(2, giftItem.getWhenis());
@@ -34,14 +34,13 @@ public class GiftItemDAO extends DAO {
       ps.setString(7, giftItem.getHasGaveReturn());
 
       int result = ps.executeUpdate();
-      if (result != 1) {
-        return false;
+      if (result == 1) {
+        status = true;
       }
-      return true;
     } catch (Exception e) {
       e.printStackTrace();
-      return false;
     }
+    return status;
   }
 
   /**
@@ -51,24 +50,22 @@ public class GiftItemDAO extends DAO {
    * @return 変更操作が完了したがどうかを示す真偽値
    */
   public boolean updateReturned(String id) {
-    try (Connection con = getConnection()) {
-
-      String sql = "UPDATE giftItems SET hasGaveReturn = ? WHERE id = ?";
-      PreparedStatement ps = con.prepareStatement(sql);
+    boolean status = false;
+    String sql = "UPDATE giftItems SET hasGaveReturn = ? WHERE id = ?";
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
       ps.setString(1, "返礼済み");
       ps.setString(2, id);
 
       int result2 = ps.executeUpdate();
 
-      if (result2 != 1) {
-        return false;
+      if (result2 == 1) {
+        status = true;
       }
-      return true;
     } catch (Exception e) {
       e.printStackTrace();
-      return false;
     }
+    return status;
   }
 
   /**
@@ -77,11 +74,8 @@ public class GiftItemDAO extends DAO {
    * @return テーブルの全情報を格納したＬｉｓｔ
    */
   public GiftItem select(String id) {
-
-    try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM giftItems WHERE id = ?";
-      PreparedStatement ps = con.prepareStatement(sql);
-
+    String sql = "SELECT * FROM giftItems WHERE id = ?";
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
       ps.setString(1, id);
 
       try (ResultSet rs = ps.executeQuery()) {
@@ -114,10 +108,8 @@ public class GiftItemDAO extends DAO {
    */
   public List<GiftItem> selectAll() {
     List<GiftItem> giftItemList = new ArrayList<>();
-
-    try (Connection con = getConnection()) {
-      String sql = "SELECT * FROM giftItems";
-      PreparedStatement ps = con.prepareStatement(sql);
+    String sql = "SELECT * FROM giftItems";
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -149,22 +141,21 @@ public class GiftItemDAO extends DAO {
    * @return 削除操作が完了したがどうかを示す真偽値
    */
   public boolean delete(String id) {
-    try (Connection con = getConnection()) {
-      String sql = "DELETE FROM giftItems WHERE id = ?";
-      PreparedStatement ps = con.prepareStatement(sql);
+    boolean status = false;
+    String sql = "DELETE FROM giftItems WHERE id = ?";
+
+    try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
       ps.setString(1, id);
-
       int result = ps.executeUpdate();
-      if (result != 1) {
-        return false;
+      if (result == 1) {
+        status = true;
       }
-      return true;
     } catch (Exception e) {
       e.printStackTrace();
-      return false;
+      status = false;
     }
-
+    return status;
   }
 
 }
