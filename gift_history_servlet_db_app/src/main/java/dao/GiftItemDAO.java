@@ -74,13 +74,14 @@ public class GiftItemDAO extends DAO {
    * @return テーブルの全情報を格納したＬｉｓｔ
    */
   public GiftItem select(String id) {
+    GiftItem giftItem = null;
     String sql = "SELECT * FROM giftItems WHERE id = ?";
     try (Connection con = getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
       ps.setString(1, id);
 
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
-          GiftItem giftItem = new GiftItem();
+          giftItem = new GiftItem();
           giftItem.setId(rs.getString("id"));
           giftItem.setWhat(rs.getString("what"));
           giftItem.setWhenis(rs.getString("whenis"));
@@ -90,15 +91,12 @@ public class GiftItemDAO extends DAO {
           giftItem.setNeedReturn(rs.getString("needReturn"));
           giftItem.setHasGaveReturn(rs.getString("hasGaveReturn"));
 
-          return giftItem;
-        } else {
-          return null;
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
-      return null;
     }
+    return giftItem;
   }
 
   /**
