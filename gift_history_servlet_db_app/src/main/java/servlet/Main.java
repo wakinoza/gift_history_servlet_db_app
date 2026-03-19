@@ -1,16 +1,15 @@
 package servlet;
 
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import model.GiftItemLogic;
 import bean.GiftItem;
 import factory.LogicFactory;
@@ -52,29 +51,31 @@ public class Main extends HttpServlet {
     String id = request.getParameter("id");
 
     GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
-    GiftItem currentGiftItem;
+    String errorMsg = null;
+    String forwardPath = "/WEB-INF/jsp/error.jsp";
 
     try {
-      currentGiftItem = giftItemLogic.findGiftItem(id);
+      GiftItem currentGiftItem = giftItemLogic.findGiftItem(id);
 
       if (currentGiftItem != null) {
-        ServletContext application = this.getServletContext();
-        application.setAttribute("currentGiftItem", currentGiftItem);
+        HttpSession session = request.getSession();
+        session.setAttribute("currentGiftItem", currentGiftItem);
         response.sendRedirect("ViewGiftDetail");
+        return;
+
       } else {
-        String errorMsg = "指定したいただきもの情報がみつかりませんでした";
-        request.setAttribute("errorMsg", errorMsg);
-        request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        errorMsg = "指定したいただきもの情報がみつかりませんでした";
       }
 
-    } catch (NoSuchElementException e) {
-      String errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
-      request.setAttribute("errorMsg", errorMsg);
+    } catch (Exception e) {
+      errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
       e.printStackTrace();
-      request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+    }
+
+    if (errorMsg != null) {
+      request.setAttribute("errorMsg", errorMsg);
+      request.getRequestDispatcher(forwardPath).forward(request, response);
     }
   }
-
-
 
 }
