@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import model.GiftItemLogic;
 import factory.LogicFactory;
 
@@ -53,29 +52,32 @@ public class ViewGiftDetail extends HttpServlet {
     String action = request.getParameter("action");
     GiftItemLogic giftItemLogic = LogicFactory.createGiftItemLogic();
 
+    String redirectPath = null;
+    String errorMsg = null;
+
     try {
-      boolean result;
+      boolean result = false;
+
       if ("returned".equals(action)) {
         result = giftItemLogic.returned(id);
       } else if ("remove".equals(action)) {
         result = giftItemLogic.remove(id);
-      } else {
-        result = false;
       }
-
       if (result) {
-        response.sendRedirect("Main");
+        redirectPath = "Main";
       } else {
-        String errorMsg = " 指定した処理が実行できませんでした";
-        request.setAttribute("errorMsg", errorMsg);
-        request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
+        errorMsg = "指定した処理が実行できませんでした";
       }
 
-
-    } catch (NoSuchElementException e) {
-      String errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
-      request.setAttribute("errorMsg", errorMsg);
+    } catch (Exception e) {
+      errorMsg = "処理中にエラーが発生しました：" + e.getMessage();
       e.printStackTrace();
+    }
+
+    if (redirectPath != null) {
+      response.sendRedirect(redirectPath);
+    } else {
+      request.setAttribute("errorMsg", errorMsg);
       request.getRequestDispatcher("/WEB-INF/jsp/error.jsp").forward(request, response);
     }
 
