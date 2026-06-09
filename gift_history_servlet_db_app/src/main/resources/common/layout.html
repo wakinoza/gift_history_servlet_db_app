@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">GiftHistory App</title>
+    
+    <!-- Bootstrap 5 CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+	<nav th:fragment="navbar" class="navbar navbar-dark bg-primary mb-4">
+	        <div class="container">
+	            <a class="navbar-brand" href="#">頂き物管理 アプリケーション</a>
+	        </div>
+	    </nav>
+	
+	<footer th:fragment="footer" class="mt-5 py-3 text-center text-muted border-top">
+	        <p>© 2026 GiftHistory App</p>
+	    </footer>
+
+</body>
+</html>
