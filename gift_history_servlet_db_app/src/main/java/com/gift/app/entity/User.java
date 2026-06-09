@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,10 +30,14 @@ public class User {
   private int id;
 
   /** ユーザー名. */
+  @NotBlank
+  @Size(max = 50)
   @Column(name = "name", nullable = false)
   private String name;
 
   /** パスワード. */
+  @NotBlank
+  @Size(max = 100)
   @Column(name = "password", nullable = false)
   private String password;
 }
