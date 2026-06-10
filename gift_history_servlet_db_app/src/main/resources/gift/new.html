@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/layout :: head('頂き物の新規記録 - 頂き物管理アプリ')}"></head>
+<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <div class="mb-3">
+                    <a th:href="@{/gift/main}" class="text-decoration-none">← メイン画面に戻る</a>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h2 class="h5 mb-0">📝 頂き物の新規記録</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted small mb-4">記録したい頂き物の情報を入力してください。</p>
+
+                        <form th:action="@{/gift/new}" method="post">
+                            
+                            <div class="mb-3">
+                                <label class="form-label">いただいた品物</label>
+                                <input type="text" name="what" class="form-control" placeholder="例: カタログギフト">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">いただいた日付</label>
+                                <input type="date" name="whenis" class="form-control" min="2020-01-01" max="2030-12-31">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">贈り主</label>
+                                <div class="input-group">
+                                    <input type="text" name="who" class="form-control" placeholder="例: 山田">
+                                    <span class="input-group-text">さん</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">贈られた理由</label>
+                                <input type="text" name="why" class="form-control" placeholder="例: 出産のお祝い">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">おおよその値段</label>
+                                <div class="input-group">
+                                    <input type="text" name="howMuch" class="form-control" placeholder="例: 5000">
+                                    <span class="input-group-text">円ほど</span>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label d-block">返礼が必要か</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="needReturn" id="returnYes" value="必要">
+                                    <label class="form-check-input-label" for="returnYes">必要</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="needReturn" id="returnNo" value="不要">
+                                    <label class="form-check-input-label" for="returnNo">必要ではない</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
+                                頂き物の情報を記録
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></div>
+</body>
+</html>
