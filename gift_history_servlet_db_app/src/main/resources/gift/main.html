@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/layout :: head('頂き物一覧 - 頂き物管理アプリ')}"></head>
+<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+
+    <div class="container mt-4">
+        
+        <div class="mb-4 text-end">
+            <a th:href="@{/gift/new}" class="btn btn-warning shadow-sm font-weight-bold">
+                頂き物の新規記録
+            </a>
+        </div>
+
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <h2 class="h4 mb-0">頂き物一覧</h2>
+            </div>
+            <div class="card-body p-4">
+                
+                <div th:if="${#lists.isEmpty(giftItemList)}" class="alert alert-secondary text-center mb-0">
+                    <p class="mb-0">頂き物の記録はありません</p>
+                </div>
+                
+                <div th:unless="${#lists.isEmpty(giftItemList)}">
+                    <div th:each="gift : ${giftItemList}" class="p-3 mb-2 bg-white border rounded d-flex justify-content-between align-items-center shadow-xs">
+                        
+                        <div>
+                            <span th:text="${#temporals.format(gift.whenis, 'yyyy年MM月dd日')}">2026年01月01日</span> に 
+                            <strong th:text="${gift.who}">贈り主</strong> さんより 
+                            「<span th:text="${gift.what}">頂いたもの</span>」
+                            
+                            <span class="ms-2 badge" th:classappend="${gift.needReturn == '必要'} ? 'bg-danger' : 'bg-secondary'">
+                                返礼: <span th:text="${gift.needReturn}">必要</span>
+                            </span>
+                            
+                            <span th:if="${gift.needReturn == '必要'}" class="badge bg-info text-dark ms-1" th:text="${gift.hasGaveReturn}">
+                                未返礼
+                            </span>
+                        </div>
+
+                        <div>
+                            <a th:href="@{/gift/detail/{id}(id=${gift.id})}" class="btn btn-outline-primary btn-sm">
+                                詳細確認
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></div>
+</body>
+</html>
