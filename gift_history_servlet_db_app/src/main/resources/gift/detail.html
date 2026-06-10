@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/layout :: head('頂き物詳細 - 頂き物管理アプリ')}"></head>
+<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <div class="mb-3">
+                    <a th:href="@{/gift/main}" class="text-decoration-none">← メイン画面に戻る</a>
+                </div>
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h2 class="h5 mb-0">🎁 頂き物の詳細</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        
+                        <dl class="row mb-4">
+                            <dt class="col-sm-4 text-muted">いただいた日付</dt>
+                            <dd class="col-sm-8" th:text="${#temporals.format(currentGiftItem.whenis, 'yyyy年MM月dd日')}">2026年01月01日</dd>
+
+                            <dt class="col-sm-4 text-muted">いただいた品物</dt>
+                            <dd class="col-sm-8" th:text="${currentGiftItem.what}">品物</dd>
+
+                            <dt class="col-sm-4 text-muted">贈り主</dt>
+                            <dd class="col-sm-8"><span th:text="${currentGiftItem.who}">贈り主</span> さん</dd>
+
+                            <dt class="col-sm-4 text-muted">贈られた理由</dt>
+                            <dd class="col-sm-8" th:text="${currentGiftItem.why}">理由</dd>
+
+                            <dt class="col-sm-4 text-muted">おおよその値段</dt>
+                            <dd class="col-sm-8"><span th:text="${currentGiftItem.howMuch}">0</span> 円ほど</dd>
+
+                            <dt class="col-sm-4 text-muted">返礼が必要か</dt>
+                            <dd class="col-sm-8" th:text="${currentGiftItem.needReturn}">必要</dd>
+
+                            <th:block th:if="${currentGiftItem.needReturn == '必要'}">
+                                <dt class="col-sm-4 text-muted">返礼をしたかどうか</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge" th:classappend="${currentGiftItem.hasGaveReturn == '未返礼'} ? 'bg-danger' : 'bg-success'" th:text="${currentGiftItem.hasGaveReturn}">未返礼</span>
+                                </dd>
+                            </th:block>
+                        </dl>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <form th:if="${currentGiftItem.needReturn == '必要' && currentGiftItem.hasGaveReturn == '未返礼'}" 
+                                  th:action="@{/gift/detail/{id}/return(id=${currentGiftItem.id})}" method="post">
+                                <button type="submit" class="btn btn-success px-4 shadow-sm">返礼済みにする</button>
+                            </form>
+
+                            <form th:action="@{/gift/detail/{id}/delete(id=${currentGiftItem.id})}" method="post" 
+                                  onsubmit="return confirm('本当にこの記録を削除しますか？');">
+                                <button type="submit" class="btn btn-orange btn-warning px-4 shadow-sm">記録を削除</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></div>
+</body>
+</html>
