@@ -45,12 +45,12 @@ public class GiftItem {
   private String why = "未回答";
 
   @Size(max = 1000)
-  @Column(name = "how_much", nullable = false)
+  @Column(name = "howMuch", nullable = false)
   private String howMuch = "未回答";
 
-  @Column(name = "need_return", nullable = false)
+  @Column(name = "needReturn", nullable = false)
   private String needReturn = "未回答";
 
-  @Column(name = "has_gave_return", nullable = false)
+  @Column(name = "hasGaveReturn", nullable = false)
   private String hasGaveReturn = "未返礼";
 }
