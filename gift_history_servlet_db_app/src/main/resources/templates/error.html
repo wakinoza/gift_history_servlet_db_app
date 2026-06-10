@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/layout :: head('エラー - 頂き物管理アプリ')}"></head>
+<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card shadow-sm border-0 p-5">
+                    
+                    <div class="text-danger mb-4">
+                        <span style="font-size: 4rem;">⚠️</span>
+                    </div>
+                    
+                    <h1 class="h4 text-dark mb-3">システムエラーが発生しました</h1>
+                    <p class="text-muted mb-4">
+                        申し訳ありません。処理の途中でエラーが発生したか、<br>
+                        お探しのページが見つかりませんでした。
+                    </p>
+                    
+                    <div class="mt-2">
+                        <a th:href="@{/gift/main}" class="btn btn-primary px-4 shadow-sm">
+                            メイン画面（一覧）に戻る
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></nav>
+</body>
+</html>
