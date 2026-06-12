@@ -14,8 +14,22 @@
 	        <div class="container">
 	            <a class="navbar-brand" href="#">頂き物管理 アプリケーション</a>
 	        </div>
-	    </nav>
-	
+	</nav>
+	<div th:fragment="loginInfo" class="container mt-3">
+	    <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded shadow-sm border">
+	        <div>
+	            <span class="text-muted small me-1">👤 ログイン中:</span>
+	            <strong class="text-primary h6 mb-0" th:text="${#authentication.name}">ゲスト</strong> さん
+	        </div>
+	        <div>
+	            <form th:action="@{/logout}" method="post" class="m-0" onsubmit="return confirm('ログアウトしますか？');">
+	                <button type="submit" class="btn btn-outline-danger btn-sm px-3">
+	                    🏃 ログアウト
+	                </button>
+	            </form>
+	        </div>
+	    </div>
+	</div>
 	<footer th:fragment="footer" class="mt-5 py-3 text-center text-muted border-top">
 	        <p>© 2026 GiftHistory App</p>
 	    </footer>
