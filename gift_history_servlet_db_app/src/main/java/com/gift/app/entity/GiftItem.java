@@ -28,7 +28,7 @@ public class GiftItem {
   @Column(name = "id")
   private int id;
 
-  @Size(max = 1000)
+  @Size(max = 100)
   @Column(name = "what", nullable = false)
   private String what = "未回答";
 
@@ -36,15 +36,15 @@ public class GiftItem {
   @Column(name = "whenis")
   private LocalDate whenis;
 
-  @Size(max = 1000)
+  @Size(max = 100)
   @Column(name = "who", nullable = false)
   private String who = "未回答";
 
-  @Size(max = 1000)
+  @Size(max = 100)
   @Column(name = "why", nullable = false)
   private String why = "未回答";
 
-  @Size(max = 1000)
+  @Size(max = 10)
   @Column(name = "howMuch", nullable = false)
   private String howMuch = "未回答";
 
