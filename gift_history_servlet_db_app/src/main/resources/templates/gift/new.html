@@ -20,7 +20,24 @@
                     </div>
                     <div class="card-body p-4">
                         <p class="text-muted small mb-4">記録したい頂き物の情報を入力してください。</p>
-
+						
+						<div class="alert alert-warning shadow-sm" 
+						     th:style="${allEmptyError} 
+						               ? 'opacity: 1; visibility: visible; transition: opacity 0.3s ease-in-out;' 
+						               : 'opacity: 0; visibility: hidden; height: 0; padding: 0; margin: 0; border: 0;'">
+						    
+						    <div class="d-flex align-items-start">
+						        <span class="me-2" style="font-size: 1.25rem; line-height: 1;">⚠️</span>
+						        <div>
+						            <strong class="d-block mb-2 text-dark">すべての項目が未入力です。</strong>
+						            
+						            <ul class="mb-0 ps-3 small text-secondary" style="line-height: 1.6;">
+						                <li>記録を続ける場合は、項目を<strong>1つ以上入力</strong>してください。</li>
+						                <li>入力を中断する場合は、ページ上部のボタンから<strong>メイン画面に戻る</strong>ことができます。</li>
+						            </ul>
+						        </div>
+						    </div>
+						</div>
 						<form th:action="@{/gift/new}" th:object="${giftItem}" method="post">
 						    
 						    <div class="mb-3">

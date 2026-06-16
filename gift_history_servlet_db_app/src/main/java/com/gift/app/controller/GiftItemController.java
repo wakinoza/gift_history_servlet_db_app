@@ -49,12 +49,26 @@ public class GiftItemController {
    */
   @PostMapping("/new")
   public String createNewGift(@Valid @ModelAttribute("giftItem") GiftItem giftItem,
-      BindingResult bindingResult) {
+      BindingResult bindingResult, Model model) {
 
+    // すべての項目が未入力（白紙）であるかのチェック
+    if ((giftItem.getWhat() == null || giftItem.getWhat().isBlank())
+        && (giftItem.getWho() == null || giftItem.getWho().isBlank())
+        && (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
+        && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
+        && giftItem.getWhenis() == null) {
+
+
+      model.addAttribute("allEmptyError", true);
+      return "gift/new";
+    }
+
+    // 通常の個別バリデーションエラー（文字数オーバーなど）があれば画面に戻る
     if (bindingResult.hasErrors()) {
       return "gift/new";
     }
 
+    // もし一部だけ入力されていて空の欄があれば「未回答」を補完
     if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
       giftItem.setWhat("未回答");
     if (giftItem.getWho() == null || giftItem.getWho().isBlank())
