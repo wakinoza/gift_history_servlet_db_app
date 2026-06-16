@@ -55,6 +55,15 @@ public class GiftItemController {
       return "gift/new";
     }
 
+    if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
+      giftItem.setWhat("未回答");
+    if (giftItem.getWho() == null || giftItem.getWho().isBlank())
+      giftItem.setWho("未回答");
+    if (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
+      giftItem.setWhy("未回答");
+    if (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
+      giftItem.setHowMuch("未回答");
+
     giftItemRepository.save(giftItem);
 
     return "redirect:/gift/main";
