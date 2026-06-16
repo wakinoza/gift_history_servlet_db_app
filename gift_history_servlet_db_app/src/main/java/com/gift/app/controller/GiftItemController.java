@@ -1,14 +1,15 @@
 package com.gift.app.controller;
 
-import java.time.LocalDate;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.gift.app.entity.GiftItem;
 import com.gift.app.repository.GiftItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,8 @@ public class GiftItemController {
    * 頂き物新規登録画面の表示
    */
   @GetMapping("/new")
-  public String showNewGiftPage() {
+  public String showNewGiftPage(Model model) {
+    model.addAttribute("giftItem", new GiftItem());
     return "gift/new";
   }
 
@@ -46,27 +48,14 @@ public class GiftItemController {
    * 頂き物新規登録処理の実行
    */
   @PostMapping("/new")
-  public String createNewGift(@RequestParam("what") String what,
-      @RequestParam("whenis") LocalDate whenis, @RequestParam("who") String who,
-      @RequestParam("why") String why, @RequestParam("howMuch") String howMuch,
-      @RequestParam("needReturn") String needReturn) {
+  public String createNewGift(@Valid @ModelAttribute("giftItem") GiftItem giftItem,
+      BindingResult bindingResult) {
 
-    GiftItem newItem = new GiftItem();
+    if (bindingResult.hasErrors()) {
+      return "gift/new";
+    }
 
-    if (what != null && !what.isBlank())
-      newItem.setWhat(what);
-    if (whenis != null)
-      newItem.setWhenis(whenis);
-    if (who != null && !who.isBlank())
-      newItem.setWho(who);
-    if (why != null && !why.isBlank())
-      newItem.setWhy(why);
-    if (howMuch != null && !howMuch.isBlank())
-      newItem.setHowMuch(howMuch);
-    if (needReturn != null && !needReturn.isBlank())
-      newItem.setNeedReturn(needReturn);
-
-    giftItemRepository.save(newItem);
+    giftItemRepository.save(giftItem);
 
     return "redirect:/gift/main";
   }

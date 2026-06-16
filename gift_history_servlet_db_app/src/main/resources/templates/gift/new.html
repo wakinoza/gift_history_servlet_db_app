@@ -21,55 +21,40 @@
                     <div class="card-body p-4">
                         <p class="text-muted small mb-4">記録したい頂き物の情報を入力してください。</p>
 
-                        <form th:action="@{/gift/new}" method="post">
-                            
-                            <div class="mb-3">
-                                <label class="form-label">いただいた品物</label>
-                                <input type="text" name="what" class="form-control" placeholder="例: カタログギフト">
-                            </div>
+						<form th:action="@{/gift/new}" th:object="${giftItem}" method="post">
+						    
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">いただいた品物</label>
+						        <input type="text" th:field="*{what}" class="form-control" placeholder="例: カタログギフト">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('what')}" th:errors="*{what}"></div>
+						    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">いただいた日付</label>
-                                <input type="date" name="whenis" class="form-control" min="2020-01-01" max="2030-12-31">
-                            </div>
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">いただいた日</label>
+						        <input type="date" th:field="*{whenis}" class="form-control">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('whenis')}" th:errors="*{whenis}"></div>
+						    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">贈り主</label>
-                                <div class="input-group">
-                                    <input type="text" name="who" class="form-control" placeholder="例: 山田">
-                                    <span class="input-group-text">さん</span>
-                                </div>
-                            </div>
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">くれた人</label>
+						        <input type="text" th:field="*{who}" class="form-control" placeholder="例: 田中太郎さん">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('who')}" th:errors="*{who}"></div>
+						    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">贈られた理由</label>
-                                <input type="text" name="why" class="form-control" placeholder="例: 出産のお祝い">
-                            </div>
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">お祝いの名目</label>
+						        <input type="text" th:field="*{why}" class="form-control" placeholder="例: 結婚祝い">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('why')}" th:errors="*{why}"></div>
+						    </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">おおよその値段</label>
-                                <div class="input-group">
-                                    <input type="text" name="howMuch" class="form-control" placeholder="例: 5000">
-                                    <span class="input-group-text">円ほど</span>
-                                </div>
-                            </div>
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">おおよその金額</label>
+						        <input type="text" th:field="*{howMuch}" class="form-control" placeholder="例: 10,000円">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('howMuch')}" th:errors="*{howMuch}"></div>
+						    </div>
 
-                            <div class="mb-4">
-                                <label class="form-label d-block">返礼が必要か</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="needReturn" id="returnYes" value="必要">
-                                    <label class="form-check-input-label" for="returnYes">必要</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="needReturn" id="returnNo" value="不要">
-                                    <label class="form-check-input-label" for="returnNo">必要ではない</label>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm">
-                                頂き物の情報を記録
-                            </button>
-                        </form>
+						    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm mt-3">頂き物の情報を記録</button>
+						</form>
                     </div>
                 </div>
 
