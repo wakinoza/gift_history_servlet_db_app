@@ -52,6 +52,18 @@
 						        <input type="text" th:field="*{howMuch}" class="form-control" placeholder="例: 10,000円">
 						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('howMuch')}" th:errors="*{howMuch}"></div>
 						    </div>
+							
+							<div class="mb-4">
+                                <label class="form-label d-block">返礼が必要か</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="needReturn" id="returnYes" value="必要">
+                                    <label class="form-check-input-label" for="returnYes">必要</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="needReturn" id="returnNo" value="不要">
+                                    <label class="form-check-input-label" for="returnNo">必要ではない</label>
+                                </div>
+                            </div>
 
 						    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm mt-3">頂き物の情報を記録</button>
 						</form>
