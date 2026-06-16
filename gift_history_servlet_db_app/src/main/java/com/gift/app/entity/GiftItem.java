@@ -28,7 +28,7 @@ public class GiftItem {
   @Column(name = "id")
   private int id;
 
-  @Size(max = 100, message = "いただいた品物は100文字いっぱいで入力してください")
+  @Size(max = 100, message = "いただいた品物は100文字以内で入力してください")
   @Column(name = "what", nullable = false, columnDefinition = "VARCHAR(100) DEFAULT '未回答'")
   private String what;
 
