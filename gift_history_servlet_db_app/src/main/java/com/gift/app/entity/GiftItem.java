@@ -28,7 +28,7 @@ public class GiftItem {
   @Column(name = "id")
   private int id;
 
-  @Size(max = 100)
+  @Size(max = 100, message = "いただいた品物は100文字以内で入力してください")
   @Column(name = "what", nullable = false)
   private String what = "未回答";
 
@@ -36,15 +36,15 @@ public class GiftItem {
   @Column(name = "whenis")
   private LocalDate whenis;
 
-  @Size(max = 100)
+  @Size(max = 100, message = "贈り主の名前は100文字以内で入力してください")
   @Column(name = "who", nullable = false)
   private String who = "未回答";
 
-  @Size(max = 100)
+  @Size(max = 100, message = "お祝いの名目は100文字以内で入力してください")
   @Column(name = "why", nullable = false)
   private String why = "未回答";
 
-  @Size(max = 10)
+  @Size(max = 10, message = "おおよその金額は10文字以内で入力してください")
   @Column(name = "howMuch", nullable = false)
   private String howMuch = "未回答";
 
