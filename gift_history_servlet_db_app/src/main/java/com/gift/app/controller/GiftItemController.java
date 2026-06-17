@@ -51,6 +51,12 @@ public class GiftItemController {
   public String createNewGift(@Valid @ModelAttribute("giftItem") GiftItem giftItem,
       BindingResult bindingResult, Model model) {
 
+    // 型変換エラー（日付の空文字エラーなど）を、全未入力チェックの前に一旦クリアする
+    // 日付の変換エラー（typeMismatch）だけが発生している場合は、必須項目ではないのでエラーを無視して処理を続行させru
+    if (bindingResult.hasFieldErrors("whenis")) {
+      giftItem.setWhenis(null);
+    }
+
     // すべての項目が未入力（白紙）であるかのチェック
     if ((giftItem.getWhat() == null || giftItem.getWhat().isBlank())
         && (giftItem.getWho() == null || giftItem.getWho().isBlank())
@@ -63,8 +69,8 @@ public class GiftItemController {
       return "gift/new";
     }
 
-    // 通常の個別バリデーションエラー（文字数オーバーなど）があれば画面に戻る
-    if (bindingResult.hasErrors()) {
+    // 個別バリデーションエラー（文字数オーバーなど）があれば画面に戻る
+    if (bindingResult.hasErrors() && !bindingResult.hasFieldErrors("whenis")) {
       return "gift/new";
     }
 

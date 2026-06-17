@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS gift_users (
 CREATE TABLE IF NOT EXISTS giftItems (
     id INT AUTO_INCREMENT PRIMARY KEY,
     what TEXT NOT NULL,
-    whenis DATE NOT NULL,
+    whenis DATE NULL,
     who TEXT NOT NULL,
     why TEXT NOT NULL,
     howMuch TEXT NOT NULL,
