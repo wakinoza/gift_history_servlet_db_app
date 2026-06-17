@@ -175,6 +175,8 @@ public class GiftItemController {
       giftItem.setWhy("未回答");
     if (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
       giftItem.setHowMuch("未回答");
+    if (giftItem.getHasGaveReturn() == null || giftItem.getHasGaveReturn().isBlank())
+      giftItem.setHasGaveReturn("未返礼");
 
     giftItemRepository.save(giftItem);
 
