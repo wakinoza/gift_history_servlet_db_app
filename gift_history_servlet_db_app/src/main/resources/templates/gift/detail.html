@@ -22,8 +22,13 @@
                         
                         <dl class="row mb-4">
                             <dt class="col-sm-4 text-muted">いただいた日付</dt>
-                            <dd class="col-sm-8" th:text="${#temporals.format(currentGiftItem.whenis, 'yyyy年MM月dd日')}">2026年01月01日</dd>
-
+							<dd class="col-sm-8">
+							    <span th:if="${currentGiftItem.whenis != null}" 
+							          th:text="${#temporals.format(currentGiftItem.whenis, 'yyyy年MM月dd日')}">2026年01月01日</span>
+							    
+							    <span th:unless="${currentGiftItem.whenis != null}" class="text-muted">（日付未入力）</span>
+							</dd>
+							
                             <dt class="col-sm-4 text-muted">いただいた品物</dt>
                             <dd class="col-sm-8" th:text="${currentGiftItem.what}">品物</dd>
 
