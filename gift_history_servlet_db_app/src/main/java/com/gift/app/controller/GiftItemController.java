@@ -135,6 +135,16 @@ public class GiftItemController {
     GiftItem giftItem = giftItemRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
 
+    if ("未回答".equals(giftItem.getWhat()))
+      giftItem.setWhat("");
+    if ("未回答".equals(giftItem.getWho()))
+      giftItem.setWho("");
+    if ("未回答".equals(giftItem.getWhy()))
+      giftItem.setWhy("");
+    if ("未回答".equals(giftItem.getHowMuch()))
+      giftItem.setHowMuch("");
+
+
     model.addAttribute("giftItem", giftItem);
 
     return "gift/new";

@@ -69,17 +69,18 @@
 						    </div>
 							
 							<div class="mb-4">
-                                <label class="form-label d-block">返礼が必要か</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="needReturn" id="returnYes" value="必要">
-                                    <label class="form-check-input-label" for="returnYes">必要</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="needReturn" id="returnNo" value="不要">
-                                    <label class="form-check-input-label" for="returnNo">必要ではない</label>
-                                </div>
-                            </div>
-							
+							    <label class="form-label d-block font-weight-bold">返礼が必要か</label>
+							    
+							    <div class="form-check form-check-inline">
+							        <input class="form-check-input" type="radio" th:field="*{needReturn}" value="必要">
+							        <label class="form-check-label" th:for="${#ids.prev('needReturn')}">必要</label>
+							    </div>
+							    
+							    <div class="form-check form-check-inline">
+							        <input class="form-check-input" type="radio" th:field="*{needReturn}" value="不要">
+							        <label class="form-check-label" th:for="${#ids.prev('needReturn')}">必要ではない</label>
+							    </div>
+							</div>
 							<div class="mb-4" th:if="${giftItem.id != 0 && giftItem.needReturn == '必要'}">
 							    <label class="form-label font-weight-bold">返礼をしたかどうか</label>
 							    <div class="form-check">
