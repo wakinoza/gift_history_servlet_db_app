@@ -95,8 +95,8 @@ public class GiftItemController {
   @GetMapping("/detail/{id}")
   public String showDetailPage(@PathVariable("id") int id, Model model) {
     GiftItem currentGiftItem = giftItemRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
-
+        .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+            org.springframework.http.HttpStatus.NOT_FOUND, "GiftItem Not Found"));
     model.addAttribute("currentGiftItem", currentGiftItem);
     return "gift/detail";
 

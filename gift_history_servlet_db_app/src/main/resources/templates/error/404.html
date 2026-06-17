@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/layout :: head('ページが見つかりません - 頂き物管理アプリ')}"></head>
+<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+    <div th:replace="~{common/layout :: loginInfo}"></div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <div class="card shadow-sm border-0 p-5">
+                    <div class="mb-4">
+                        <span class="display-1 text-muted">🔍</span>
+                    </div>
+                    <h1 class="h3 mb-3 font-weight-bold text-dark">お探しのデータは見つかりませんでした</h1>
+                    <p class="text-secondary mb-4">
+                        指定されたURLが間違っているか、<br>
+                        該当する頂き物の記録がすでに削除された可能性があります。
+                    </p>
+                    <div class="mt-2">
+                        <a th:href="@{/gift/main}" class="btn btn-primary btn-lg px-4 shadow-sm">
+                            🏠 メイン画面に戻る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></div>
+</body>
+</html>
