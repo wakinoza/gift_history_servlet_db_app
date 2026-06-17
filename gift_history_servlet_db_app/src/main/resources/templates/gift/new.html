@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{common/layout :: head('頂き物の新規記録 - 頂き物管理アプリ')}"></head>
-<body class="bg-light">
+	<head th:replace="~{common/layout :: head(${giftItem.id == 0} ? '頂き物の新規記録 - 頂き物管理アプリ' : '頂き物の内容変更 - 頂き物管理アプリ')}"></head>
+	<body class="bg-light">
 
     <nav th:replace="~{common/layout :: navbar}"></nav> 
 	<div th:replace="~{common/layout :: loginInfo}"></div>
@@ -16,8 +16,7 @@
 
                 <div class="card shadow-sm border-0">
                     <div class="card-header bg-primary text-white py-3">
-                        <h2 class="h5 mb-0">📝 頂き物の新規記録</h2>
-                    </div>
+                        <h2 class="h5 mb-0" th:text="${giftItem.id == 0} ? '📝 頂き物の新規記録' : '✍️ 頂き物の内容変更'">📝 頂き物の新規記録</h2> </div>
                     <div class="card-body p-4">
                         <p class="text-muted small mb-4">記録したい頂き物の情報を入力してください。</p>
 						
@@ -38,8 +37,7 @@
 						        </div>
 						    </div>
 						</div>
-						<form th:action="@{/gift/new}" th:object="${giftItem}" method="post">
-						    
+						<form th:action="${giftItem.id == 0} ? @{/gift/new} : @{/gift/edit/{id}(id=${giftItem.id})}" th:object="${giftItem}" method="post">    
 						    <div class="mb-3">
 						        <label class="form-label font-weight-bold">いただいた品物</label>
 						        <input type="text" th:field="*{what}" class="form-control" placeholder="例: カタログギフト">
@@ -82,8 +80,8 @@
                                 </div>
                             </div>
 
-						    <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm mt-3">頂き物の情報を記録</button>
-						</form>
+							<button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm mt-3" 
+							                                    th:text="${giftItem.id == 0} ? '頂き物の情報を記録' : '変更内容を保存する'">頂き物の情報を記録</button></form>
                     </div>
                 </div>
 

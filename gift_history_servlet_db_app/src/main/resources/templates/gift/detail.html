@@ -55,6 +55,7 @@
                         <hr>
 
                         <div class="d-flex justify-content-end gap-2">
+							<a th:href="@{/gift/edit/{id}(id=${currentGiftItem.id})}" class="btn btn-primary px-4 shadow-sm">内容を変更</a>
                             <form th:if="${currentGiftItem.needReturn == '必要' && currentGiftItem.hasGaveReturn == '未返礼'}" 
                                   th:action="@{/gift/detail/{id}/return(id=${currentGiftItem.id})}" method="post">
                                 <button type="submit" class="btn btn-success px-4 shadow-sm">返礼済みにする</button>

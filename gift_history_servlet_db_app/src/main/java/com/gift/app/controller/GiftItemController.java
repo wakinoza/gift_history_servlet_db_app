@@ -126,4 +126,58 @@ public class GiftItemController {
 
     return "redirect:/gift/main";
   }
+
+  /**
+   * 頂き物編集画面の表示
+   */
+  @GetMapping("/edit/{id}")
+  public String showEditGiftPage(@PathVariable("id") int id, Model model) {
+    GiftItem giftItem = giftItemRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
+
+    model.addAttribute("giftItem", giftItem);
+
+    return "gift/new";
+  }
+
+  /**
+   * 頂き物編集処理の実行
+   */
+  @PostMapping("/edit/{id}")
+  public String updateGift(@PathVariable("id") int id,
+      @Valid @ModelAttribute("giftItem") GiftItem giftItem, BindingResult bindingResult,
+      Model model) {
+
+    if ((giftItem.getWhat() == null || giftItem.getWhat().isBlank())
+        && (giftItem.getWho() == null || giftItem.getWho().isBlank())
+        && (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
+        && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
+        && giftItem.getWhenis() == null) {
+
+      model.addAttribute("allEmptyError", true);
+      return "gift/new";
+    }
+
+    if (bindingResult.hasFieldErrors("whenis")) {
+      giftItem.setWhenis(null);
+    }
+    if (bindingResult.hasErrors() && !bindingResult.hasFieldErrors("whenis")) {
+      return "gift/new";
+    }
+
+    giftItem.setId(id);
+
+    if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
+      giftItem.setWhat("未回答");
+    if (giftItem.getWho() == null || giftItem.getWho().isBlank())
+      giftItem.setWho("未回答");
+    if (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
+      giftItem.setWhy("未回答");
+    if (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
+      giftItem.setHowMuch("未回答");
+
+    giftItemRepository.save(giftItem);
+
+    return "redirect:/gift/detail/" + id;
+  }
 }
