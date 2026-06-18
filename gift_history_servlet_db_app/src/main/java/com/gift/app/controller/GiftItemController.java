@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.gift.app.entity.GiftItem;
 import com.gift.app.repository.GiftItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/gift")
 @RequiredArgsConstructor
@@ -26,14 +28,13 @@ public class GiftItemController {
    */
   @GetMapping("/main")
   public String showMainPage(Model model) {
-
     List<GiftItem> giftItemList = giftItemRepository.findAll();
 
-    model.addAttribute("giftItemList", giftItemList);
+    log.info("【GIFT INFO】一覧画面がリクエストされました。取得件数: {}件", giftItemList.size());
 
+    model.addAttribute("giftItemList", giftItemList);
     return "gift/main";
   }
-
 
   /**
    * 頂き物新規登録画面の表示
@@ -51,9 +52,8 @@ public class GiftItemController {
   public String createNewGift(@Valid @ModelAttribute("giftItem") GiftItem giftItem,
       BindingResult bindingResult, Model model) {
 
-    // 型変換エラー（日付の空文字エラーなど）を、全未入力チェックの前に一旦クリアする
-    // 日付の変換エラー（typeMismatch）だけが発生している場合は、必須項目ではないのでエラーを無視して処理を続行させru
     if (bindingResult.hasFieldErrors("whenis")) {
+      log.info("【GIFT INFO】日付フィールドの型変換エラーを無視して続行します。");
       giftItem.setWhenis(null);
     }
 
@@ -64,17 +64,19 @@ public class GiftItemController {
         && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
         && giftItem.getWhenis() == null) {
 
-
+      log.warn("【GIFT WARNING】すべての項目が未入力のため、新規登録処理を中断しました。");
       model.addAttribute("allEmptyError", true);
       return "gift/new";
     }
 
     // 個別バリデーションエラー（文字数オーバーなど）があれば画面に戻る
     if (bindingResult.hasErrors() && !bindingResult.hasFieldErrors("whenis")) {
+
+      log.warn("【GIFT WARNING】バリデーションエラーが発生したため、入力画面へ差し戻します。エラー数: {}個",
+          bindingResult.getErrorCount());
       return "gift/new";
     }
 
-    // もし一部だけ入力されていて空の欄があれば「未回答」を補完
     if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
       giftItem.setWhat("未回答");
     if (giftItem.getWho() == null || giftItem.getWho().isBlank())
@@ -86,6 +88,9 @@ public class GiftItemController {
 
     giftItemRepository.save(giftItem);
 
+    log.info("【GIFT INFO】新しい頂き物の記録を登録しました。ID: {}, 品物: {}, 贈り主: {}", giftItem.getId(),
+        giftItem.getWhat(), giftItem.getWho());
+
     return "redirect:/gift/main";
   }
 
@@ -94,12 +99,14 @@ public class GiftItemController {
    */
   @GetMapping("/detail/{id}")
   public String showDetailPage(@PathVariable("id") int id, Model model) {
+    log.info("【GIFT INFO】詳細画面がリクエストされました。対象ID: {}", id);
+
     GiftItem currentGiftItem = giftItemRepository.findById(id)
         .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
             org.springframework.http.HttpStatus.NOT_FOUND, "GiftItem Not Found"));
+
     model.addAttribute("currentGiftItem", currentGiftItem);
     return "gift/detail";
-
   }
 
   /**
@@ -111,8 +118,9 @@ public class GiftItemController {
         .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
 
     giftItem.setHasGaveReturn("済");
-
     giftItemRepository.save(giftItem);
+
+    log.info("【GIFT INFO】頂き物記録(ID: {}) の返礼ステータスを「済」に更新しました。", id);
 
     return "redirect:/gift/main";
   }
@@ -124,6 +132,8 @@ public class GiftItemController {
   public String deleteGift(@PathVariable("id") int id) {
     giftItemRepository.deleteById(id);
 
+    log.warn("【GIFT WARNING】頂き物記録(ID: {}) がシステムから削除されました。", id);
+
     return "redirect:/gift/main";
   }
 
@@ -132,6 +142,8 @@ public class GiftItemController {
    */
   @GetMapping("/edit/{id}")
   public String showEditGiftPage(@PathVariable("id") int id, Model model) {
+    log.info("【GIFT INFO】編集画面がリクエストされました。対象ID: {}", id);
+
     GiftItem giftItem = giftItemRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
 
@@ -144,9 +156,7 @@ public class GiftItemController {
     if ("未回答".equals(giftItem.getHowMuch()))
       giftItem.setHowMuch("");
 
-
     model.addAttribute("giftItem", giftItem);
-
     return "gift/new";
   }
 
@@ -164,6 +174,7 @@ public class GiftItemController {
         && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
         && giftItem.getWhenis() == null) {
 
+      log.warn("【GIFT WARNING】すべての項目が未入力のため、編集（上書き）処理を中断しました。対象ID: {}", id);
       model.addAttribute("allEmptyError", true);
       return "gift/new";
     }
@@ -172,6 +183,8 @@ public class GiftItemController {
       giftItem.setWhenis(null);
     }
     if (bindingResult.hasErrors() && !bindingResult.hasFieldErrors("whenis")) {
+      log.warn("【GIFT WARNING】編集処理中にバリデーションエラーが発生しました。対象ID: {}, エラー数: {}個", id,
+          bindingResult.getErrorCount());
       return "gift/new";
     }
 
@@ -189,6 +202,9 @@ public class GiftItemController {
       giftItem.setHasGaveReturn("未返礼");
 
     giftItemRepository.save(giftItem);
+
+    log.info("【GIFT INFO】頂き物記録(ID: {}) の情報が上書き更新されました。更新後の品物: {}, 贈り主: {}", id, giftItem.getWhat(),
+        giftItem.getWho());
 
     return "redirect:/gift/detail/" + id;
   }
