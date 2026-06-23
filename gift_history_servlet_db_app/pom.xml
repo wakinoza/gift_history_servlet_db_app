@@ -110,9 +110,9 @@
 			    <version>0.8.11</version> 
 			    <configuration>
 			        <excludes>
-			            <exclude>com/gift/app/entity/GiftItem</exclude>
-			            <exclude>com/gift/app/entity/User</exclude>
-			            <exclude>com/gift/app/GiftHistoryApplication</exclude>
+			            <exclude>com/gift/app/entity/GiftItem.class</exclude>
+			            <exclude>com/gift/app/entity/User.class</exclude>
+			            <exclude>com/gift/app/GiftHistoryApplication.class</exclude>
 			        </excludes>
 			    </configuration>
 			    <executions>
