@@ -113,6 +113,7 @@
 			            <exclude>com/gift/app/entity/GiftItem.class</exclude>
 			            <exclude>com/gift/app/entity/User.class</exclude>
 			            <exclude>com/gift/app/GiftHistoryApplication.class</exclude>
+			            <exclude>com/gift/app/config/SecurityConfig.class</exclude>
 			        </excludes>
 			    </configuration>
 			    <executions>
