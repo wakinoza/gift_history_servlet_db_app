@@ -153,34 +153,41 @@ public class GiftItemController {
    */
   @PostMapping("/edit/{id}")
   public String updateGift(@PathVariable("id") int id,
-      @Valid @ModelAttribute("giftItem") GiftItem giftItem, BindingResult bindingResult,
-      Model model) {
+      @ModelAttribute("giftItem") GiftItem formForm, BindingResult bindingResult, Model model) {
 
-    if (isAllFieldsEmpty(giftItem)) {
+    GiftItem giftItem = giftItemRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid gift Item Id:" + id));
+
+    if (isAllFieldsEmpty(formForm)) {
       log.warn("【GIFT WARNING】すべての項目が未入力のため、処理を中断しました。");
       model.addAttribute("allEmptyError", true);
       return "gift/new";
     }
 
     if (bindingResult.hasFieldErrors("whenis")) {
-      giftItem.setWhenis(null);
+      formForm.setWhenis(null);
     }
+
     if (bindingResult.hasErrors() && !bindingResult.hasFieldErrors("whenis")) {
       log.warn("【GIFT WARNING】編集処理中にバリデーションエラーが発生しました。対象ID: {}, エラー数: {}個", id,
           bindingResult.getErrorCount());
       return "gift/new";
     }
 
-    giftItem.setId(id);
+    giftItem.setWhat(formForm.getWhat());
+    giftItem.setWho(formForm.getWho());
+    giftItem.setWhy(formForm.getWhy());
+    giftItem.setHowMuch(formForm.getHowMuch());
+    giftItem.setWhenis(formForm.getWhenis());
+
+    if (formForm.getHasGaveReturn() == null || formForm.getHasGaveReturn().isBlank()) {
+      giftItem.setHasGaveReturn("未返礼");
+    } else {
+      giftItem.setHasGaveReturn(formForm.getHasGaveReturn());
+    }
 
     fillDefaultValues(giftItem);
-    if (giftItem.getHasGaveReturn() == null || giftItem.getHasGaveReturn().isBlank())
-      giftItem.setHasGaveReturn("未返礼");
-
     giftItemRepository.save(giftItem);
-
-    log.info("【GIFT INFO】頂き物記録(ID: {}) の情報が上書き更新されました。更新後の品物: {}, 贈り主: {}", id, giftItem.getWhat(),
-        giftItem.getWho());
 
     return "redirect:/gift/detail/" + id;
   }
