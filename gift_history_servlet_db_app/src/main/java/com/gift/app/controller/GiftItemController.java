@@ -58,13 +58,8 @@ public class GiftItemController {
     }
 
     // すべての項目が未入力（白紙）であるかのチェック
-    if ((giftItem.getWhat() == null || giftItem.getWhat().isBlank())
-        && (giftItem.getWho() == null || giftItem.getWho().isBlank())
-        && (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
-        && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
-        && giftItem.getWhenis() == null) {
-
-      log.warn("【GIFT WARNING】すべての項目が未入力のため、新規登録処理を中断しました。");
+    if (isAllFieldsEmpty(giftItem)) {
+      log.warn("【GIFT WARNING】すべての項目が未入力のため、処理を中断しました。");
       model.addAttribute("allEmptyError", true);
       return "gift/new";
     }
@@ -168,13 +163,8 @@ public class GiftItemController {
       @Valid @ModelAttribute("giftItem") GiftItem giftItem, BindingResult bindingResult,
       Model model) {
 
-    if ((giftItem.getWhat() == null || giftItem.getWhat().isBlank())
-        && (giftItem.getWho() == null || giftItem.getWho().isBlank())
-        && (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
-        && (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
-        && giftItem.getWhenis() == null) {
-
-      log.warn("【GIFT WARNING】すべての項目が未入力のため、編集（上書き）処理を中断しました。対象ID: {}", id);
+    if (isAllFieldsEmpty(giftItem)) {
+      log.warn("【GIFT WARNING】すべての項目が未入力のため、処理を中断しました。");
       model.addAttribute("allEmptyError", true);
       return "gift/new";
     }
@@ -207,5 +197,15 @@ public class GiftItemController {
         giftItem.getWho());
 
     return "redirect:/gift/detail/" + id;
+  }
+
+  /**
+   * 全ての入力項目が空（またはnull）であるかを判定します。
+   */
+  private boolean isAllFieldsEmpty(GiftItem item) {
+    return (item.getWhat() == null || item.getWhat().isBlank())
+        && (item.getWho() == null || item.getWho().isBlank())
+        && (item.getWhy() == null || item.getWhy().isBlank())
+        && (item.getHowMuch() == null || item.getHowMuch().isBlank()) && item.getWhenis() == null;
   }
 }
