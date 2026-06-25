@@ -184,13 +184,11 @@ public class GiftItemController {
     giftItem.setWhy(formForm.getWhy());
     giftItem.setHowMuch(formForm.getHowMuch());
     giftItem.setWhenis(formForm.getWhenis());
+    giftItem.setHasGaveReturn(formForm.getHasGaveReturn());
 
-    if (formForm.getHasGaveReturn() == null) {
+
+    if (giftItem.getHasGaveReturn().isBlank()) {
       giftItem.setHasGaveReturn("未返礼");
-    } else if (formForm.getHasGaveReturn().isBlank()) {
-      giftItem.setHasGaveReturn("未返礼");
-    } else {
-      giftItem.setHasGaveReturn(formForm.getHasGaveReturn());
     }
 
     fillDefaultValues(giftItem);
