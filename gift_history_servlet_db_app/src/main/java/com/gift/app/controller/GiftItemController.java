@@ -72,14 +72,7 @@ public class GiftItemController {
       return "gift/new";
     }
 
-    if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
-      giftItem.setWhat("未回答");
-    if (giftItem.getWho() == null || giftItem.getWho().isBlank())
-      giftItem.setWho("未回答");
-    if (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
-      giftItem.setWhy("未回答");
-    if (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
-      giftItem.setHowMuch("未回答");
+    fillDefaultValues(giftItem);
 
     giftItemRepository.save(giftItem);
 
@@ -180,14 +173,7 @@ public class GiftItemController {
 
     giftItem.setId(id);
 
-    if (giftItem.getWhat() == null || giftItem.getWhat().isBlank())
-      giftItem.setWhat("未回答");
-    if (giftItem.getWho() == null || giftItem.getWho().isBlank())
-      giftItem.setWho("未回答");
-    if (giftItem.getWhy() == null || giftItem.getWhy().isBlank())
-      giftItem.setWhy("未回答");
-    if (giftItem.getHowMuch() == null || giftItem.getHowMuch().isBlank())
-      giftItem.setHowMuch("未回答");
+    fillDefaultValues(giftItem);
     if (giftItem.getHasGaveReturn() == null || giftItem.getHasGaveReturn().isBlank())
       giftItem.setHasGaveReturn("未返礼");
 
@@ -207,5 +193,23 @@ public class GiftItemController {
         && (item.getWho() == null || item.getWho().isBlank())
         && (item.getWhy() == null || item.getWhy().isBlank())
         && (item.getHowMuch() == null || item.getHowMuch().isBlank()) && item.getWhenis() == null;
+  }
+
+  /**
+   * 未入力の項目（nullまたは空文字）にデフォルト値「未回答」をセットします。
+   */
+  private void fillDefaultValues(GiftItem item) {
+    if (item.getWhat() == null || item.getWhat().isBlank()) {
+      item.setWhat("未回答");
+    }
+    if (item.getWho() == null || item.getWho().isBlank()) {
+      item.setWho("未回答");
+    }
+    if (item.getWhy() == null || item.getWhy().isBlank()) {
+      item.setWhy("未回答");
+    }
+    if (item.getHowMuch() == null || item.getHowMuch().isBlank()) {
+      item.setHowMuch("未回答");
+    }
   }
 }
