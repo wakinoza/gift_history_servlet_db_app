@@ -2,6 +2,7 @@ package com.gift.app.controller;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class GiftItemController {
 
+  @Autowired
+  private org.springframework.validation.SmartValidator validator;
   private final GiftItemRepository giftItemRepository;
 
   /**
@@ -164,6 +167,8 @@ public class GiftItemController {
       return "gift/new";
     }
 
+    validator.validate(formForm, bindingResult);
+
     if (bindingResult.hasFieldErrors("whenis")) {
       formForm.setWhenis(null);
     }
@@ -180,7 +185,9 @@ public class GiftItemController {
     giftItem.setHowMuch(formForm.getHowMuch());
     giftItem.setWhenis(formForm.getWhenis());
 
-    if (formForm.getHasGaveReturn() == null || formForm.getHasGaveReturn().isBlank()) {
+    if (formForm.getHasGaveReturn() == null) {
+      giftItem.setHasGaveReturn("未返礼");
+    } else if (formForm.getHasGaveReturn().isBlank()) {
       giftItem.setHasGaveReturn("未返礼");
     } else {
       giftItem.setHasGaveReturn(formForm.getHasGaveReturn());
