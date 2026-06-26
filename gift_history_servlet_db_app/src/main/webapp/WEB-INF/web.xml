@@ -5,31 +5,31 @@
                       https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
   version="6.0">
 
-  <filter>
-    <filter-name>SecurityHeaderFilter</filter-name>
-    <filter-class>filter.SecurityHeaderFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>SecurityHeaderFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+<!--  <filter>-->
+<!--    <filter-name>SecurityHeaderFilter</filter-name>-->
+<!--    <filter-class>filter.SecurityHeaderFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>SecurityHeaderFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
 
-  <filter>
-    <filter-name>SetEncodingFilter</filter-name>
-    <filter-class>filter.SetEncodingFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>SetEncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+<!--  <filter>-->
+<!--    <filter-name>SetEncodingFilter</filter-name>-->
+<!--    <filter-class>filter.SetEncodingFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>SetEncodingFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
 
-  <filter>
-    <filter-name>CheckLoginFilter</filter-name>
-    <filter-class>filter.CheckLoginFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>CheckLoginFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+<!--  <filter>-->
+<!--    <filter-name>CheckLoginFilter</filter-name>-->
+<!--    <filter-class>filter.CheckLoginFilter</filter-class>-->
+<!--  </filter>-->
+<!--  <filter-mapping>-->
+<!--    <filter-name>CheckLoginFilter</filter-name>-->
+<!--    <url-pattern>/*</url-pattern>-->
+<!--  </filter-mapping>-->
 
 </web-app>
