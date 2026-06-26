@@ -201,27 +201,35 @@ public class GiftItemController {
    * 全ての入力項目が空（またはnull）であるかを判定します。
    */
   private boolean isAllFieldsEmpty(GiftItem item) {
-    return (item.getWhat() == null || item.getWhat().isBlank())
-        && (item.getWho() == null || item.getWho().isBlank())
-        && (item.getWhy() == null || item.getWhy().isBlank())
-        && (item.getHowMuch() == null || item.getHowMuch().isBlank()) && item.getWhenis() == null;
+    if (!java.util.Objects.toString(item.getWhat(), "").isBlank())
+      return false;
+    if (!java.util.Objects.toString(item.getWho(), "").isBlank())
+      return false;
+    if (!java.util.Objects.toString(item.getWhy(), "").isBlank())
+      return false;
+    if (!java.util.Objects.toString(item.getHowMuch(), "").isBlank())
+      return false;
+    if (item.getWhenis() != null)
+      return false;
+
+    return true;
   }
 
   /**
    * 未入力の項目（nullまたは空文字）にデフォルト値「未回答」をセットします。
    */
   private void fillDefaultValues(GiftItem item) {
-    if (item.getWhat() == null || item.getWhat().isBlank()) {
-      item.setWhat("未回答");
-    }
-    if (item.getWho() == null || item.getWho().isBlank()) {
-      item.setWho("未回答");
-    }
-    if (item.getWhy() == null || item.getWhy().isBlank()) {
-      item.setWhy("未回答");
-    }
-    if (item.getHowMuch() == null || item.getHowMuch().isBlank()) {
-      item.setHowMuch("未回答");
-    }
+
+    String what = java.util.Objects.toString(item.getWhat(), "");
+    item.setWhat(what.isBlank() ? "未回答" : what);
+
+    String who = java.util.Objects.toString(item.getWho(), "");
+    item.setWho(who.isBlank() ? "未回答" : who);
+
+    String why = java.util.Objects.toString(item.getWhy(), "");
+    item.setWhy(why.isBlank() ? "未回答" : why);
+
+    String howMuch = java.util.Objects.toString(item.getHowMuch(), "");
+    item.setHowMuch(howMuch.isBlank() ? "未回答" : howMuch);
   }
 }
