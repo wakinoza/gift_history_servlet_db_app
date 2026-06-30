@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -184,10 +185,12 @@ public class GiftItemController {
     giftItem.setWhy(formForm.getWhy());
     giftItem.setHowMuch(formForm.getHowMuch());
     giftItem.setWhenis(formForm.getWhenis());
+    giftItem.setNeedReturn(formForm.getNeedReturn());
     giftItem.setHasGaveReturn(formForm.getHasGaveReturn());
 
 
-    if (giftItem.getHasGaveReturn().isBlank()) {
+    if (!StringUtils.hasText(giftItem.getHasGaveReturn())
+        || "不要".equals(giftItem.getNeedReturn())) {
       giftItem.setHasGaveReturn("未返礼");
     }
 
