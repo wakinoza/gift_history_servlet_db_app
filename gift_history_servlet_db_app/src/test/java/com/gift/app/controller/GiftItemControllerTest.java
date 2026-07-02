@@ -321,4 +321,21 @@ class GiftItemControllerTest {
     }).hasRootCauseInstanceOf(IllegalArgumentException.class)
         .hasStackTraceContaining("Invalid gift Item Id:999");
   }
+
+  @Test
+  @DisplayName("POST /gift/edit/{id} : すでに返礼ステータスがある状態で、返礼「不要」に変更した場合も正しく処理されること")
+  void updateGift_Success_NeedReturnIsFuyo_WithExistingStatus() throws Exception {
+    GiftItem existingItem = new GiftItem();
+    existingItem.setId(1);
+    existingItem.setHasGaveReturn("済");
+    when(giftItemRepository.findById(1)).thenReturn(java.util.Optional.of(existingItem));
+
+    mockMvc
+        .perform(post("/gift/edit/1").param("what", "お菓子").param("who", "佐藤さん")
+            .param("needReturn", "不要").param("hasGaveReturn", "済"))
+        .andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("/gift/detail/1"));
+
+
+    verify(giftItemRepository).save(argThat(item -> "未返礼".equals(item.getHasGaveReturn())));
+  }
 }
