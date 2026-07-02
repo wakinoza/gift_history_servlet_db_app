@@ -307,6 +307,8 @@ class GiftItemControllerTest {
         .param("howMuch", "3000円"));
     mockMvc.perform(post("/gift/edit/1").param("what", "").param("who", "").param("why", "")
         .param("howMuch", "").param("hasGaveReturn", "").param("whenis", "2026-06-25"));
+    mockMvc.perform(post("/gift/edit/1").param("what", "お菓子").param("needReturn", "不要")
+        .param("hasGaveReturn", ""));
   }
 
   @Test
