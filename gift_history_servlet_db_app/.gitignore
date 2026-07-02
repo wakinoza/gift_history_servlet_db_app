@@ -84,3 +84,7 @@ logs/
 ### DB ###
 db.sqlite3
 dump.sql
+
+
+
+/src/test/resources/application-test.properties
