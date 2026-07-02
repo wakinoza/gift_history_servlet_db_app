@@ -11,9 +11,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import com.gift.app.entity.User;
 import com.gift.app.repository.UserRepository;
 
+@Transactional
 @ExtendWith(MockitoExtension.class)
 class CustomUserDetailsServiceTest {
 
