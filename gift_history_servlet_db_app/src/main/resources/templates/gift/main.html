@@ -33,13 +33,21 @@
                             <strong th:text="${gift.who}">贈り主</strong> さんより 
                             「<span th:text="${gift.what}">頂いたもの</span>」
                             
-                            <span class="ms-2 badge" th:classappend="${gift.needReturn == '必要'} ? 'bg-danger' : 'bg-secondary'">
-                                返礼: <span th:text="${gift.needReturn}">必要</span>
-                            </span>
-                            
-                            <span th:if="${gift.needReturn == '必要'}" class="badge bg-info text-dark ms-1" th:text="${gift.hasGaveReturn}">
-                                未返礼
-                            </span>
+							<span class="ms-2">
+							    <span th:if="${gift.needReturn == '不要'}" class="badge bg-secondary text-white">
+							        返礼不要
+							    </span>
+
+							    <span th:if="${gift.needReturn == '必要' && gift.hasGaveReturn == '未返礼'}" 
+							          class="badge bg-danger text-white shadow-sm fw-bold">
+							        ⚠️ 要返礼：未
+							    </span>
+
+							    <span th:if="${gift.needReturn == '必要' && gift.hasGaveReturn == '済'}" 
+							          class="badge bg-info text-dark fw-bold">
+							        ✓ 要返礼：済
+							    </span>
+							</span>
                         </div>
 
                         <div>
