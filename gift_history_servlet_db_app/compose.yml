@@ -30,9 +30,6 @@ services:
       - .env
     environment:
       DB_HOST: db
-#    デバック用
-#    volumes:
-#      - ./tomcat_logs:/usr/local/tomcat/logs 
     depends_on:
       db:
         condition: service_healthy
