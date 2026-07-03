@@ -11,9 +11,6 @@ import com.gift.app.entity.User;
 
 @Transactional
 @SpringBootTest
-// @DataJpaTest
-// @ActiveProfiles("test")
-// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest {
 
   @Autowired

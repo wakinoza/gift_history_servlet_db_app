@@ -12,9 +12,6 @@ import com.gift.app.entity.GiftItem;
 
 @Transactional
 @SpringBootTest
-// @DataJpaTest
-// @ActiveProfiles("test")
-// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class GiftItemRepositoryTest {
 
   @Autowired
