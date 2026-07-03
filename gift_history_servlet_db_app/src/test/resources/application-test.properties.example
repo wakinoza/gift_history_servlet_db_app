@@ -1,0 +1,45 @@
+# ===================================================================
+# テスト用 データベース接続設定 (見本ファイル)
+# ===================================================================
+# [注意] 実際に手元でテスト（mvn test）を実行する際は、以下の手順を行ってください。
+#
+# 1. このファイルをコピーして同階層に「application-test.properties」を作成する。
+# 2. ユーザー名・パスワードを、自身のDocker（docker-compose.yml）の設定に合わせて書き換える。
+# -------------------------------------------------------------------
+
+# ===================================================================
+# 1. アプリケーション基本設定
+# ===================================================================
+spring.application.name=gift-management-app-test
+
+# ===================================================================
+# 2. データベース接続設定 (テスト実行時はローカルマシーンからDocker上のポートを参照)
+# ===================================================================
+# ※ Docker Compose側のポートマッピング設定に合わせて、ポート番号（3307等）は適宜調整してください
+spring.datasource.url=jdbc:mysql://localhost:3307/gift_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Tokyo
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.datasource.username=YOUR_DOCKER_MYSQL_USER_HERE
+spring.datasource.password=YOUR_DOCKER_MYSQL_PASSWORD_HERE
+
+# ===================================================================
+# 3. JPA / Hibernate 設定
+# ===================================================================
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+# ===================================================================
+# 4. セッション / クッキー安全設定
+# ===================================================================
+server.servlet.session.cookie.http-only=true
+server.servlet.session.cookie.secure=false
+server.servlet.session.cookie.same-site=lax
+
+# ===================================================================
+# 5. セキュリティヘッダー / エンコーディング設定
+# ===================================================================
+spring.mvc.contentnegotiation.media-types.html=text/html;charset=UTF-8
+server.servlet.encoding.charset=UTF-8
+server.servlet.encoding.force=true
