@@ -6,12 +6,17 @@ import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import com.gift.app.entity.GiftItem;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(
+    properties = {"spring.datasource.jndi-name=", "spring.main.web-application-type=servlet"})
+@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class GiftItemRepositoryTest {
 
   @Autowired
