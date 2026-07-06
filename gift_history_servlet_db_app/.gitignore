@@ -1,6 +1,16 @@
-### original ###
+### security ###
+.env
+*.pem
+*.key
+id_rsa
+credentials.csv
+google-service-account.json
+aws_access_key_id
+credentials
+.aws/
+
+### java ###
 *.class
-*.log
 *.jar
 *.war
 *.nar
@@ -10,16 +20,19 @@
 *.rar
 hs_err_pid*
 .mtj.tmp/
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+
+### OS ###
+.DS_Store
+Thumbs.db
+
 ### VS Code ###
 .vscode/
-
-### Mac OS ###
-.DS_Store
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -38,6 +51,40 @@ target/
 .settings
 .springBeans
 .sts4-cache
+bin/
+.metadata/
+*.tmp
+*.bak
+*.swp
 
-.env
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Spring Boot ###
+*.log
+logs/
+*.out
+/out/
+
+### npm ###
+node_modules
+
+### log ###
+*.log
+logs/
+*.out
+
+### DB ###
+db.sqlite3
+dump.sql
+
+
+/tomcat_logs/
 

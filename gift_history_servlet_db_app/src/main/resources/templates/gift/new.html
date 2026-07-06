@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="~{common/layout :: head(${giftItem.id == 0} ? '頂き物の新規記録 - 頂き物管理アプリ' : '頂き物の内容変更 - 頂き物管理アプリ')}"></head>
+	<body class="bg-light">
+
+    <nav th:replace="~{common/layout :: navbar}"></nav> 
+	<div th:replace="~{common/layout :: loginInfo}"></div>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                
+                <div class="mb-3">
+                    <a th:href="@{/gift/main}" class="text-decoration-none">← メイン画面に戻る</a>
+                </div>
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-primary text-white py-3">
+                        <h2 class="h5 mb-0" th:text="${giftItem.id == 0} ? '📝 頂き物の新規記録' : '✍️ 頂き物の内容変更'">📝 頂き物の新規記録</h2> </div>
+                    <div class="card-body p-4">
+                        <p class="text-muted small mb-4">記録したい頂き物の情報を入力してください。</p>
+						
+						<div class="alert alert-warning shadow-sm" 
+						     th:style="${allEmptyError} 
+						               ? 'opacity: 1; visibility: visible; transition: opacity 0.3s ease-in-out;' 
+						               : 'opacity: 0; visibility: hidden; height: 0; padding: 0; margin: 0; border: 0;'">
+						    
+						    <div class="d-flex align-items-start">
+						        <span class="me-2" style="font-size: 1.25rem; line-height: 1;">⚠️</span>
+						        <div>
+						            <strong class="d-block mb-2 text-dark">すべての項目が未入力です。</strong>
+						            
+						            <ul class="mb-0 ps-3 small text-secondary" style="line-height: 1.6;">
+						                <li>記録を続ける場合は、項目を<strong>1つ以上入力</strong>してください。</li>
+						                <li>入力を中断する場合は、ページ上部のボタンから<strong>メイン画面に戻る</strong>ことができます。</li>
+						            </ul>
+						        </div>
+						    </div>
+						</div>
+						<form th:action="${giftItem.id == 0} ? @{/gift/new} : @{/gift/edit/{id}(id=${giftItem.id})}" th:object="${giftItem}" method="post">    
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">いただいた品物</label>
+						        <input type="text" th:field="*{what}" class="form-control" placeholder="例: カタログギフト">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('what')}" th:errors="*{what}"></div>
+						    </div>
+
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">いただいた日</label>
+						        <input type="date" th:field="*{whenis}" class="form-control">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('whenis')}" th:errors="*{whenis}"></div>
+						    </div>
+
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">くれた人</label>
+						        <input type="text" th:field="*{who}" class="form-control" placeholder="例: 田中太郎さん">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('who')}" th:errors="*{who}"></div>
+						    </div>
+
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">お祝いの名目</label>
+						        <input type="text" th:field="*{why}" class="form-control" placeholder="例: 結婚祝い">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('why')}" th:errors="*{why}"></div>
+						    </div>
+
+						    <div class="mb-3">
+						        <label class="form-label font-weight-bold">おおよその金額</label>
+						        <input type="text" th:field="*{howMuch}" class="form-control" placeholder="例: 10,000円">
+						        <div class="text-danger small mt-1" th:if="${#fields.hasErrors('howMuch')}" th:errors="*{howMuch}"></div>
+						    </div>
+							
+							<div class="form-check form-check-inline">
+							    <input class="form-check-input" type="radio" th:field="*{needReturn}" value="必要" id="needReturn_yes">
+							    <label class="form-check-label" for="needReturn_yes">必要</label>
+							</div>
+
+							<div class="form-check form-check-inline">
+							    <input class="form-check-input" type="radio" th:field="*{needReturn}" value="不要" id="needReturn_no">
+							    <label class="form-check-label" for="needReturn_no">必要ではない</label>
+							</div>
+							
+							<div class="mb-4" th:if="${giftItem.id != 0}">
+							    <label class="form-label font-weight-bold">返礼をしたかどうか</label>
+							    <div class="form-check">
+							        <input class="form-check-input" type="checkbox" 
+							               th:field="*{hasGaveReturn}" 
+							               th:value="済" 
+							               id="statusReturned">
+							        <label class="form-check-label text-success font-weight-bold" for="statusReturned">
+							            すでに返礼を済ませている場合はチェックを入れてください
+							        </label>
+							    </div>
+							</div>
+							<button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm mt-3" 
+							                                    th:text="${giftItem.id == 0} ? '頂き物の情報を記録' : '変更内容を保存する'">頂き物の情報を記録</button></form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{common/layout :: footer}"></div>
+</body>
+</html>
